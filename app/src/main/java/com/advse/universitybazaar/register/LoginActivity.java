@@ -15,6 +15,7 @@ import com.google.firebase.database.*;
 public class LoginActivity extends AppCompatActivity {
 
     private DatabaseReference db;
+    private Button register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,15 @@ public class LoginActivity extends AppCompatActivity {
         final Button loginButton = (Button) findViewById(R.id.login);
         final EditText mavID = (EditText) findViewById(R.id.mavID);
         final EditText password = (EditText) findViewById(R.id.password);
+
+        //When user clicks on register button
+        register = (Button) findViewById(R.id.register);
+        register.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                Intent registrationActivity = new Intent(getApplicationContext(), RegisterActivity.class);
+                startActivity(registrationActivity);
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
