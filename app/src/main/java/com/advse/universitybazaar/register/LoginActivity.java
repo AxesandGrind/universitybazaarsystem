@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Student student = dataSnapshot.getValue(Student.class);
                         System.out.println("Datasnapshot captured");
-                        if(student.getPassword().equals(pass)) {
+                        if(student != null && !("".equals(mID)) && !("".equals(pass)) && student.getPassword().equals(pass)) {
                             Toast.makeText(getApplicationContext(),"Login Successful",Toast.LENGTH_LONG).show();
                             SharedPreferences.Editor preferences = getApplicationContext().getSharedPreferences("LOGIN_PREF",MODE_PRIVATE).edit();
                             preferences.putString("mavID",student.getMavID());
