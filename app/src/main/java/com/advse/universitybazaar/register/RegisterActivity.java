@@ -98,8 +98,8 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
 
-            final AlertDialog alert = dialog.create();
-            alert.show();
+            //final AlertDialog alert = dialog.create();
+            //alert.show();
         }
 
         //If no validation issues
