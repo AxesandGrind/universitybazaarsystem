@@ -11,10 +11,19 @@
         <activity android:name=".RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UserHome" />
+        <activity android:name="com.advse.universitybazaar.clubs.ClubHome" />
+        <activity android:name="com.advse.universitybazaar.messages.MessageHome" />
+        <activity android:name="com.advse.universitybazaar.posts.PostHome"></activity>
     </application>
 
 </manifest>
