@@ -30,6 +30,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText t3;
     private EditText t4;
     private String err = "";
+    private boolean succsess;
+
     private static final String coDomain = "mavs.uta.edu";
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
@@ -40,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        succsess = false;
 
         b1 = (Button) findViewById(R.id.b1);
         //When reserve button is clicked
@@ -103,12 +107,13 @@ public class RegisterActivity extends AppCompatActivity {
             db = FirebaseDatabase.getInstance().getReference("Users");
             System.out.println("Connection created");
 
-            db.child(t2.getText().toString().trim()).addValueEventListener(new ValueEventListener() {
+            db.child(t2.getText().toString().trim()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     Student student = dataSnapshot.getValue(Student.class);
                     System.out.println("Datasnapshot captured");
                     if(student == null) {
+                        sendEmail();
                         Student newStudent = new Student(t2.getText().toString().trim(),
                                 t1.getText().toString().trim(),
                                 t4.getText().toString().trim(),
@@ -122,6 +127,8 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"User already exists in the system",Toast.LENGTH_LONG).show();
 
                     }
+
+
                 }
 
                 @Override
@@ -130,7 +137,17 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
 
+
+
+
+
         }
+
+    }
+
+    public void sendEmail(){
+        //Toast.makeText(getApplicationContext(),"Email function called",Toast.LENGTH_LONG).show();
+        new EmailActivity(this,t3.getText().toString().trim()).execute(t3.getText().toString().trim());
 
     }
 }
