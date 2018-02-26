@@ -2,8 +2,13 @@ package com.advse.universitybazaar.register;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,10 +18,32 @@ import com.advse.universitybazaar.posts.PostHome;
 
 public class UserHome extends AppCompatActivity {
 
+    //private DrawerLayout navbarLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
+
+       /* navbarLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                int id = menuItem.getItemId();
+                menuItem.setChecked(true);
+                navbarLayout.closeDrawers();
+                switch (id) {
+                    case R.id.nav_clubs:
+                        LayoutInflater inflator = getLayoutInflater();
+                        ConstraintLayout container = (ConstraintLayout) findViewById(R.id.club_home);
+                        inflator.inflate(R.layout.activity_user_home,container);
+                        break;
+                }
+                return true;
+            }
+        });*/
 
         final Button clubHome = (Button) findViewById(R.id.clubButton);
         final Button postsHome = (Button) findViewById(R.id.postButton);
