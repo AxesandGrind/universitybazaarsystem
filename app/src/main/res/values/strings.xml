@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">University Bazaar</string>
+    <string name="register_fail_snackbar">Failed</string>
 </resources>

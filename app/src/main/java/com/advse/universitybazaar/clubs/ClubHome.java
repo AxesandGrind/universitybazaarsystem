@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.advse.universitybazaar.register.R;
 import com.advse.universitybazaar.register.UserHome;
 
-public class ClubHome extends AppCompatActivity {
+public class ClubHome extends UserHome {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
