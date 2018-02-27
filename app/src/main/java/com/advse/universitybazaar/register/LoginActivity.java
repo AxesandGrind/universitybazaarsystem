@@ -110,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Student student = dataSnapshot.getValue(Student.class);
+                System.out.print(dataSnapshot);
                 System.out.println("Datasnapshot captured");
                 if(student != null && !("".equals(mID)) && !("".equals(pass)) && student.getPassword().equals(pass)) {
                     loginSuccess = true;
