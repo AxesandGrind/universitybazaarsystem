@@ -14,22 +14,6 @@
         android:id="@+id/club_home"
         tools:context="com.advse.universitybazaar.clubs.ClubHome">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:layout_weight="1"
-            android:scaleType="fitXY"
-            android:src="@drawable/index"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></ImageView>
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/CreateClubButton"
             android:layout_width="56dp"
@@ -43,6 +27,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/clubsTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary" />
+
+        <!-- View pager to swipe views -->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/clubsPager"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"/>
 
     </android.support.constraint.ConstraintLayout>
 
