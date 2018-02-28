@@ -25,6 +25,7 @@
         <activity android:name="com.advse.universitybazaar.messages.MessageHome" />
         <activity android:name="com.advse.universitybazaar.posts.PostHome" />
         <activity android:name="com.advse.universitybazaar.clubs.CreateClubActivity" />
+        <activity android:name="com.advse.universitybazaar.clubs.SelectedClubHome"></activity>
     </application>
 
 </manifest>
