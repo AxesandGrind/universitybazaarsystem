@@ -26,7 +26,7 @@ public class ClubHome extends AppCompatActivity implements TabLayout.OnTabSelect
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_home);
 
-        /*getSupportActionBar().hide();*/
+        getSupportActionBar().setTitle("Clubs");
 
         FloatingActionButton createClubButon = (FloatingActionButton) findViewById(R.id.CreateClubButton);
         createClubButon.setOnClickListener(new View.OnClickListener() {

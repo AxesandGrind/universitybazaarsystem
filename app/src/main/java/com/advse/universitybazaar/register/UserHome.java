@@ -25,6 +25,10 @@ public class UserHome extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_home);
 
+        SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
+        String setTitle = prefs.getString("name",null);
+        getSupportActionBar().setTitle(setTitle + "'s Home");
+
        /* navbarLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
 
