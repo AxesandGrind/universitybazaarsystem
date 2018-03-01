@@ -36,6 +36,7 @@ public class UserAdapter extends ArrayAdapter<Student>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        db = FirebaseDatabase.getInstance().getReference();
         System.out.println("Adapter called");
 
         final Student student = membersList.get(position);
@@ -53,10 +54,18 @@ public class UserAdapter extends ArrayAdapter<Student>{
             @Override
             public void onClick(View v) {
 
-                FirebaseDatabase.getInstance().getReference("Clubs/" + student.getClubId()+"/member/" + student.getMavID()).removeValue();
-               /* db = FirebaseDatabase.getInstance().getReference();
-                Query deleteMember = db.child("Clubs")*/
+                db = db.child("Clubs").child(String.valueOf(student.getClubId())).child("members").child(student.getMavID());
+                db.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        dataSnapshot.getRef().removeValue();
+                    }
 
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
         return convertView;
