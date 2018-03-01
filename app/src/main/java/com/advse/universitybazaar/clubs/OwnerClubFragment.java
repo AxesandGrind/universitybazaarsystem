@@ -2,6 +2,7 @@ package com.advse.universitybazaar.clubs;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 
 import com.advse.universitybazaar.bean.Club;
 import com.advse.universitybazaar.register.R;
+import com.advse.universitybazaar.register.UserHome;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -101,6 +103,7 @@ public class OwnerClubFragment extends Fragment {
     }
 
     public void addToView(Club club){
+        final int clubId = club.getClubId();
         tr= new TableRow(getActivity());
         layoutparamstr = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.MATCH_PARENT);
@@ -109,6 +112,11 @@ public class OwnerClubFragment extends Fragment {
         tr.setId(club.getClubId());
         tr.setBackgroundColor(Color.GRAY);
         tr.setPadding(0, 40, 0, 40);
+        tr.setOnClickListener(new TableRow.OnClickListener(){
+            public void onClick(View v) {
+                showClub(clubId);
+            }
+        });
 
         layoutparams = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.WRAP_CONTENT, 50);
@@ -129,6 +137,14 @@ public class OwnerClubFragment extends Fragment {
         tv2.setTextSize(15);
         tr.addView(tv2);
         table.addView(tr);
+
+    }
+
+
+    public void showClub(int id){
+        Intent clubHome = new Intent(getActivity().getApplicationContext(), com.advse.universitybazaar.clubs.SelectedClubHome.class);
+        clubHome.putExtra("clubId",id);
+        startActivity(clubHome);
 
     }
 
