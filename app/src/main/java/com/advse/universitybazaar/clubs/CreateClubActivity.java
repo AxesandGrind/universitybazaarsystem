@@ -63,7 +63,8 @@ public class CreateClubActivity extends AppCompatActivity {
                 SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
                 String ownerID = prefs.getString("mavID",null);
 
-                Club addClub = new Club(clubList.get(0).getClubId()+1,clubName.getText().toString(),clubDesc.getText().toString(),ownerID);
+                Club addClub = new Club(clubList.get(0).getClubId()+1,clubName.getText().toString(),
+                        clubDesc.getText().toString(),ownerID, "");
                 db.child(String.valueOf(clubList.get(0).getClubId()+1)).setValue(addClub);
 
                 setResult(RESULT_OK,null);
