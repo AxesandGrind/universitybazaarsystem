@@ -44,11 +44,11 @@ public class ClubTabsManager extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
-            case 0: return "All Clubs";
+            case 0: return "Not a Member";
 
-            case 1: return "Member Clubs";
+            case 1: return "Member";
 
-            case 2: return "Owned Clubs";
+            case 2: return "Owned";
         }
         return null;
     }

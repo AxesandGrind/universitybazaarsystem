@@ -56,7 +56,7 @@ public class UserAdapter extends ArrayAdapter<Student>{
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Club club = dataSnapshot.getValue(Club.class);
-                if(club.getClubOwner().equals(currentUser)) {
+                if(club.getClubOwner().equals(currentUser) && student.getType().equals("M")) {
                     deleteMemberButton.setText("Delete");
                     deleteMemberButton.setVisibility(View.VISIBLE);
                     deleteMemberButton.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +79,32 @@ public class UserAdapter extends ArrayAdapter<Student>{
                         }
                     });
                 }
+                else if(club.getClubOwner().equals(currentUser) && student.getType().equals("R")) {
+                    deleteMemberButton.setText("Approve");
+                    deleteMemberButton.setVisibility(View.VISIBLE);
+                    deleteMemberButton.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View v) {
+
+                            db = db.child("Clubs").child(String.valueOf(student.getClubId())).child("requests").child(student.getMavID());
+                            db.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    db.getParent().getParent().child("members").child(student.getMavID()).setValue(student.getName());
+                                    dataSnapshot.getRef().removeValue();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    });
+                }
+
+
             }
 
             @Override
