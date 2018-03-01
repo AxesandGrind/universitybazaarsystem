@@ -20,9 +20,7 @@ public class SelectedClubHome extends AppCompatActivity {
         setContentView(R.layout.activity_selected_club_home);
         getSupportActionBar().setTitle("Selected Club");
         List<Student> listOfStudents = new ArrayList<>();
-        listOfStudents.add(new Student("Sunny"));
-        listOfStudents.add(new Student("Sachin"));
-
+        listOfStudents.add(new Student("1001427250","Shreyas",2));
         ArrayAdapter<Student> listAdapter = new UserAdapter(getApplicationContext(),0,listOfStudents);
 
         ListView clubMembersList = (ListView) findViewById(R.id.listOfStudents);
