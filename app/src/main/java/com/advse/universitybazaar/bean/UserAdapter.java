@@ -2,6 +2,7 @@ package com.advse.universitybazaar.bean;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,39 +38,55 @@ public class UserAdapter extends ArrayAdapter<Student>{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         db = FirebaseDatabase.getInstance().getReference();
-        System.out.println("Adapter called");
+
+        SharedPreferences prefs = context.getSharedPreferences("LOGIN_PREF",Context.MODE_PRIVATE);
+        final String currentUser = prefs.getString("mavID",null);
 
         final Student student = membersList.get(position);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.club_member_list_layout,parent,false);
 
-        TextView clubMemberName = (TextView) convertView.findViewById(R.id.clubMemberName);
-        Button deleteMemberButton = (Button) convertView.findViewById(R.id.deleteMember);
+        final TextView clubMemberName = (TextView) convertView.findViewById(R.id.clubMemberName);
+        final Button deleteMemberButton = (Button) convertView.findViewById(R.id.deleteMember);
+        deleteMemberButton.setVisibility(View.GONE);
 
         clubMemberName.setText(student.getName());
 
+        db.child("Clubs/" + student.getClubId()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Club club = dataSnapshot.getValue(Club.class);
+                if(club.getClubOwner().equals(currentUser)) {
+                    deleteMemberButton.setText("Delete");
+                    deleteMemberButton.setVisibility(View.VISIBLE);
+                    deleteMemberButton.setOnClickListener(new View.OnClickListener() {
 
+                        @Override
+                        public void onClick(View v) {
 
-        deleteMemberButton.setText("Delete");
-        deleteMemberButton.setOnClickListener(new View.OnClickListener() {
+                            db = db.child("Clubs").child(String.valueOf(student.getClubId())).child("members").child(student.getMavID());
+                            db.addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    dataSnapshot.getRef().removeValue();
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    });
+                }
+            }
 
             @Override
-            public void onClick(View v) {
+            public void onCancelled(DatabaseError databaseError) {
 
-                db = db.child("Clubs").child(String.valueOf(student.getClubId())).child("members").child(student.getMavID());
-                db.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        dataSnapshot.getRef().removeValue();
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
             }
         });
+
         return convertView;
     }
 

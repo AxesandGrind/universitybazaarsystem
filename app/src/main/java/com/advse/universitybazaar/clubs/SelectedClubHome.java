@@ -76,7 +76,7 @@ public class SelectedClubHome extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                Club club = dataSnapshot.getValue(Club.class);
+                final Club club = dataSnapshot.getValue(Club.class);
                 System.out.print("\n\n\n\n\n\n\n\n\n" + club);
                 HashMap<String, String> members = new HashMap<String, String>();
                 //clubList.add(snapShot.getValue(Club.class));
@@ -108,6 +108,24 @@ public class SelectedClubHome extends AppCompatActivity {
                     requestMembership.setVisibility(View.GONE);
                     deleteClub.setVisibility(View.VISIBLE);
                     deleteClub.setText("Delete Club");
+                    deleteClub.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            db.child("Clubs/").addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    dataSnapshot.child(String.valueOf(club.getClubId())).getRef().removeValue();
+                                    Intent intent = new Intent(getApplicationContext(),ClubHome.class);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+                    });
 
                 }
 
