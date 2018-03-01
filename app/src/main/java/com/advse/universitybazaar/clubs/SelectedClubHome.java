@@ -81,7 +81,11 @@ public class SelectedClubHome extends AppCompatActivity {
                 HashMap<String, String> members = new HashMap<String, String>();
                 //clubList.add(snapShot.getValue(Club.class));
                 for(DataSnapshot m : dataSnapshot.child("members").getChildren()){
-                    listAdapter.add(new Student(m.getKey(),m.getValue().toString(),club.getClubId()));
+                    listAdapter.add(new Student(m.getKey(),m.getValue().toString(),club.getClubId(),"M"));
+                    members.put(m.getKey(), m.getValue().toString());
+                }
+                for(DataSnapshot m : dataSnapshot.child("requests").getChildren()){
+                    listAdapter.add(new Student(m.getKey(),m.getValue().toString(),club.getClubId(),"R"));
                     members.put(m.getKey(), m.getValue().toString());
                 }
 
@@ -141,10 +145,10 @@ public class SelectedClubHome extends AppCompatActivity {
                             HashMap<String, String> requests = new HashMap<String, String>();
                             for(DataSnapshot r : snap.getChildren())
                                 requests.put(r.getKey(), r.getValue().toString());
-
                             if(requests.containsKey(mavID)){
                                 requestMembership.setVisibility(View.VISIBLE);
                                 requestMembership.setText("Request Sent");
+
                             }
                             else{
                                 requestMembership.setVisibility(View.VISIBLE);
@@ -189,14 +193,22 @@ public class SelectedClubHome extends AppCompatActivity {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
+                List<Student> updatedMemberList = new ArrayList<>();
+
+                for(DataSnapshot snap : dataSnapshot.child("members").getChildren()) {
+                    updatedMemberList.add(new Student(snap.getKey(),snap.getValue().toString(),clubID,"M"));
+                }
+
+                for(DataSnapshot snap : dataSnapshot.child("requests").getChildren()) {
+                    updatedMemberList.add(new Student(snap.getKey(),snap.getValue().toString(),clubID,"R"));
+                }
+
+                listAdapter.refreshMembersList(updatedMemberList);
+                Toast.makeText(getApplicationContext(),"List Updated",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                // Add the code here.....
-                Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
-                //listAdapter.refreshMembersList(pass new list here);
 
             }
 
