@@ -145,10 +145,11 @@ public class SelectedClubHome extends AppCompatActivity {
                             HashMap<String, String> requests = new HashMap<String, String>();
                             for(DataSnapshot r : snap.getChildren())
                                 requests.put(r.getKey(), r.getValue().toString());
+
                             if(requests.containsKey(mavID)){
                                 requestMembership.setVisibility(View.VISIBLE);
                                 requestMembership.setText("Request Sent");
-
+                                deleteClub.setVisibility(View.GONE);
                             }
                             else{
                                 requestMembership.setVisibility(View.VISIBLE);
@@ -193,22 +194,14 @@ public class SelectedClubHome extends AppCompatActivity {
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                List<Student> updatedMemberList = new ArrayList<>();
-
-                for(DataSnapshot snap : dataSnapshot.child("members").getChildren()) {
-                    updatedMemberList.add(new Student(snap.getKey(),snap.getValue().toString(),clubID,"M"));
-                }
-
-                for(DataSnapshot snap : dataSnapshot.child("requests").getChildren()) {
-                    updatedMemberList.add(new Student(snap.getKey(),snap.getValue().toString(),clubID,"R"));
-                }
-
-                listAdapter.refreshMembersList(updatedMemberList);
-                Toast.makeText(getApplicationContext(),"List Updated",Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                // Add the code here.....
+                Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
+                //listAdapter.refreshMembersList(pass new list here);
 
             }
 
