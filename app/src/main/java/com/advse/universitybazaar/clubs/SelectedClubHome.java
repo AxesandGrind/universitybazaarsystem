@@ -145,6 +145,7 @@ public class SelectedClubHome extends AppCompatActivity {
                             if(requests.containsKey(mavID)){
                                 requestMembership.setVisibility(View.VISIBLE);
                                 requestMembership.setText("Request Sent");
+                                deleteClub.setVisibility(View.GONE);
                             }
                             else{
                                 requestMembership.setVisibility(View.VISIBLE);

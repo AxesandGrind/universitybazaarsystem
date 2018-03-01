@@ -69,16 +69,19 @@ public class AllClubsFragment extends Fragment {
                 //clubList = new ArrayList<>();
 
                 for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
+                    Club club = snapShot.getValue(Club.class);
                     //System.out.println(snapShot);
                     HashMap<String, String> members = new HashMap<String, String>();
                     //clubList.add(snapShot.getValue(Club.class));
                     for(DataSnapshot m : snapShot.child("members").getChildren()){
                         members.put(m.getKey(), m.getValue().toString());
-                        System.out.println(m);
+                        //System.out.println(m);
                     }
-                    if(!members.containsKey(ownerID ) &&
-                            !snapShot.child("clubOwner").getValue().toString().equals(ownerID))
-                        addToView(snapShot.getValue(Club.class));
+                    if(!members.containsKey(ownerID ) && !club.getClubOwner().equals(ownerID) ){
+                        System.out.println(club.getClubName());
+                        addToView(club);
+                    }
+
 
                 }
 
