@@ -21,6 +21,11 @@ public class Student {
         this.clubId = clubId;
     }
 
+    public Student(String name, String mavID){
+        this.name = name;
+        this.mavID = mavID;
+    }
+
     public Student(String id, String name, String pw, String email){
         this.mavID = id;
         this.name = name;
