@@ -2,40 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="24dp"
-    android:paddingRight="24dp"
-    android:paddingTop="48dp" >
+    android:layout_height="match_parent">
 
     <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:id="@+id/requestMembership"
+        android:layout_width="match_parent"
+        android:background="@color/colorAccent"
+        android:textColor="#FFFFFF"
+        android:layout_height="70dp" />
 
     <Button
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
+        android:id="@+id/deleteClub"
+        android:layout_width="match_parent"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorAccent"
+        android:layout_height="70dp" />
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="145dp"
-        android:layout_height="27dp"
-        android:text="TextView" />
+        android:id="@+id/displayClubName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
-        android:id="@+id/textView5"
-        android:layout_width="145dp"
-        android:layout_height="27dp"
-        android:text="TextView" />
+        android:id="@+id/displayClubDescription"
+        android:layout_width="match_parent"
+        android:layout_height="150dp" />
 
     <TextView
-        android:id="@+id/textView6"
-        android:layout_width="275dp"
-        android:layout_height="74dp"
-        android:text="TextView"/>
+        android:id="@+id/displayClubOwner"
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
 
 
     <ListView
