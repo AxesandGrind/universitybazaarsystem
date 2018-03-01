@@ -143,7 +143,7 @@ public class AllClubsFragment extends Fragment {
 
     public void showClub(int id){
         Intent clubHome = new Intent(getActivity().getApplicationContext(), com.advse.universitybazaar.clubs.SelectedClubHome.class);
-        clubHome.putExtra("clubId",id);
+        clubHome.putExtra("clubId",String.valueOf(id));
         startActivity(clubHome);
 
     }

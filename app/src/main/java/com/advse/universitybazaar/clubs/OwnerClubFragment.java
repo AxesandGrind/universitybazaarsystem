@@ -75,7 +75,7 @@ public class OwnerClubFragment extends Fragment {
                     table.removeView(table.getChildAt(table.getChildCount() - 1));
                 clubList = new ArrayList<>();
                 for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
-                    System.out.println(snapShot);
+                    //System.out.println(snapShot);
                     clubList.add(snapShot.getValue(Club.class));
                 }
 
@@ -143,7 +143,7 @@ public class OwnerClubFragment extends Fragment {
 
     public void showClub(int id){
         Intent clubHome = new Intent(getActivity().getApplicationContext(), com.advse.universitybazaar.clubs.SelectedClubHome.class);
-        clubHome.putExtra("clubId",id);
+        clubHome.putExtra("clubId",String.valueOf(id) );
         startActivity(clubHome);
 
     }
