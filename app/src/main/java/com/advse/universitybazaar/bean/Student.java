@@ -10,8 +10,12 @@ public class Student {
     private String password;
     private String email;
 
-    public Student(){
+    public Student() {
 
+    }
+
+    public Student(String name){
+        this.name = name;
     }
 
     public Student(String id, String name, String pw, String email){
