@@ -16,6 +16,7 @@ public class MemberClubFragment extends Fragment {
 
 
     public MemberClubFragment() {
+        System.out.println("Inside Constructor");
 
     }
 
@@ -23,6 +24,7 @@ public class MemberClubFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        System.out.println("Inside method");
 
         return inflater.inflate(R.layout.fragment_member_club, container, false);
     }
