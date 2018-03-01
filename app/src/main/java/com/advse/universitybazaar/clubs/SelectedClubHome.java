@@ -61,7 +61,6 @@ public class SelectedClubHome extends AppCompatActivity {
 
         requestMembership = (Button) findViewById(R.id.requestMembership);
         deleteClub = (Button) findViewById(R.id.deleteClub);
-        clubName = (TextView) findViewById(R.id.displayClubName);
         clubDescription = (TextView) findViewById(R.id.displayClubDescription);
         clubOwner = (TextView) findViewById(R.id.displayClubOwner);
 
@@ -79,6 +78,7 @@ public class SelectedClubHome extends AppCompatActivity {
                 final Club club = dataSnapshot.getValue(Club.class);
                 System.out.print("\n\n\n\n\n\n\n\n\n" + club);
                 HashMap<String, String> members = new HashMap<String, String>();
+                HashMap<String, String> reuests = new HashMap<String, String>();
                 //clubList.add(snapShot.getValue(Club.class));
                 for(DataSnapshot m : dataSnapshot.child("members").getChildren()){
                     listAdapter.add(new Student(m.getKey(),m.getValue().toString(),club.getClubId(),"M"));
@@ -86,11 +86,10 @@ public class SelectedClubHome extends AppCompatActivity {
                 }
                 for(DataSnapshot m : dataSnapshot.child("requests").getChildren()){
                     listAdapter.add(new Student(m.getKey(),m.getValue().toString(),club.getClubId(),"R"));
-                    members.put(m.getKey(), m.getValue().toString());
+                    reuests.put(m.getKey(), m.getValue().toString());
                 }
 
                 //To display name, owner and description
-                clubName.setText(club.getClubName());
                 getSupportActionBar().setTitle(club.getClubName());
                 clubDescription.setText(club.getClubDescription());
 
@@ -100,7 +99,7 @@ public class SelectedClubHome extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot snap) {
                         Student student = snap.getValue(Student.class);
-                        clubOwner.setText(student.getName());
+                        clubOwner.setText("Owner: " + student.getName());
                     }
 
                     @Override
@@ -184,7 +183,7 @@ public class SelectedClubHome extends AppCompatActivity {
 
 
 
-        // Notifies as soon as a member is deleted from the club
+       /* // Notifies as soon as a member is deleted from the club
         ChildEventListener memberdeletedListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -198,7 +197,17 @@ public class SelectedClubHome extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                List<Student> updatedList = new ArrayList<>();
 
+                for(DataSnapshot m : dataSnapshot.child("members").getChildren()){
+                    updatedList.add(new Student(m.getKey(),m.getValue().toString(),clubID,"M"));
+                }
+                for(DataSnapshot m : dataSnapshot.child("requests").getChildren()){
+                    updatedList.add(new Student(m.getKey(),m.getValue().toString(),clubID,"R"));
+                }
+
+                listAdapter.refreshMembersList(updatedList);
+                listAdapter.notifyDataSetChanged();
                 // Add the code here.....
                 Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
                 //listAdapter.refreshMembersList(pass new list here);
@@ -215,6 +224,6 @@ public class SelectedClubHome extends AppCompatActivity {
 
             }
         };
-        clubRef.addChildEventListener(memberdeletedListener);
+        clubRef.addChildEventListener(memberdeletedListener);*/
     }
 }

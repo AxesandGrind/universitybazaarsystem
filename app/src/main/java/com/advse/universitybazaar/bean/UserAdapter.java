@@ -79,7 +79,7 @@ public class UserAdapter extends ArrayAdapter<Student>{
                         }
                     });
                 }
-                else {
+                else if(club.getClubOwner().equals(currentUser) && student.getType().equals("R")) {
                     deleteMemberButton.setText("Approve");
                     deleteMemberButton.setVisibility(View.VISIBLE);
                     deleteMemberButton.setOnClickListener(new View.OnClickListener() {
@@ -112,18 +112,6 @@ public class UserAdapter extends ArrayAdapter<Student>{
 
             }
         });
-
-        /*db.child("Clubs/" + student.getClubId()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });*/
 
         return convertView;
     }
