@@ -15,6 +15,7 @@ import com.advse.universitybazaar.bean.Club;
 import com.advse.universitybazaar.bean.Student;
 import com.advse.universitybazaar.bean.UserAdapter;
 import com.advse.universitybazaar.register.R;
+import com.advse.universitybazaar.register.RegisterActivity;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -39,6 +40,7 @@ public class SelectedClubHome extends AppCompatActivity {
     private List<Student> listOfStudents;
     private UserAdapter listAdapter;
     private String mavID;
+    private String userName;
     private String clubID;
 
     @Override
@@ -50,6 +52,7 @@ public class SelectedClubHome extends AppCompatActivity {
         // Get mavID from shared prefs and club id from intent bundle
         SharedPreferences sharedPreferences = getSharedPreferences("LOGIN_PREF", MODE_PRIVATE);
         mavID = sharedPreferences.getString("mavID", null);
+        userName = sharedPreferences.getString("name", null);
         Intent intent = getIntent();
         clubID = intent.getStringExtra("clubId");
 
@@ -113,9 +116,40 @@ public class SelectedClubHome extends AppCompatActivity {
                     deleteClub.setVisibility(View.GONE);
                 }
                 else{
-                    requestMembership.setVisibility(View.VISIBLE);
-                    deleteClub.setVisibility(View.GONE);
-                    requestMembership.setText("Join");
+                    Query getRequests = clubRef.child("requests");
+                    getRequests.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snap) {
+                            HashMap<String, String> requests = new HashMap<String, String>();
+                            for(DataSnapshot r : snap.getChildren())
+                                requests.put(r.getKey(), r.getValue().toString());
+
+                            if(requests.containsKey(mavID)){
+                                requestMembership.setVisibility(View.VISIBLE);
+                                requestMembership.setText("Request Sent");
+                            }
+                            else{
+                                requestMembership.setVisibility(View.VISIBLE);
+                                deleteClub.setVisibility(View.GONE);
+                                requestMembership.setText("Join");
+                                requestMembership.setOnClickListener(new Button.OnClickListener() {
+                                    public void onClick(View v) {
+                                        clubRef.child("requests").child(mavID).setValue(userName);
+                                        requestMembership.setText("Request Sent");
+                                        requestMembership.setOnClickListener(null);
+                                        Toast.makeText(getApplicationContext(),"Request sent to the Owner",Toast.LENGTH_LONG).show();
+                                    }
+                                });
+
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {}
+                    });
+
+
                 }
             }
 
