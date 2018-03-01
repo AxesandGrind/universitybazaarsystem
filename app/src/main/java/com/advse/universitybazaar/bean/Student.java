@@ -10,15 +10,17 @@ public class Student {
     private String password;
     private String email;
     private int clubId;
+    private String type;
 
     public Student() {
 
     }
 
-    public Student(String mavId, String name,int clubId){
+    public Student(String mavId, String name,int clubId, String type){
         this.mavID = mavId;
         this.name = name;
         this.clubId = clubId;
+        this.type = type;
     }
 
     public Student(String name, String mavID){
@@ -73,5 +75,11 @@ public class Student {
         this.clubId = clubId;
     }
 
+    public String getType() {
+        return type;
+    }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 }
