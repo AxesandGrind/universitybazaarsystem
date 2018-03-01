@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.*;
+
 import com.advse.universitybazaar.register.R;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class UserAdapter extends ArrayAdapter<Student>{
 
     private Context context;
     private List<Student> membersList;
-
+    private DatabaseReference db;
     public UserAdapter(@NonNull Context context, int resource, List<Student> membersList) {
         super(context,resource,membersList);
         this.context = context;
@@ -34,9 +36,10 @@ public class UserAdapter extends ArrayAdapter<Student>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
+        db = FirebaseDatabase.getInstance().getReference();
         System.out.println("Adapter called");
 
-        Student student = membersList.get(position);
+        final Student student = membersList.get(position);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.club_member_list_layout,parent,false);
 
@@ -44,8 +47,27 @@ public class UserAdapter extends ArrayAdapter<Student>{
         Button deleteMemberButton = (Button) convertView.findViewById(R.id.deleteMember);
 
         clubMemberName.setText(student.getName());
-        deleteMemberButton.setText("Delete");
 
+        deleteMemberButton.setText("Delete");
+        deleteMemberButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                db = db.child("Clubs").child(String.valueOf(student.getClubId())).child("members").child(student.getMavID());
+                db.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        dataSnapshot.getRef().removeValue();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
         return convertView;
     }
 

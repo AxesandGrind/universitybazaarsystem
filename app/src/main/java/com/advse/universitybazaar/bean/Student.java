@@ -9,13 +9,16 @@ public class Student {
     private String name;
     private String password;
     private String email;
+    private int clubId;
 
     public Student() {
 
     }
 
-    public Student(String name){
+    public Student(String mavId, String name,int clubId){
+        this.mavID = mavId;
         this.name = name;
+        this.clubId = clubId;
     }
 
     public Student(String id, String name, String pw, String email){
@@ -55,5 +58,13 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public int getClubId() {
+        return clubId;
+    }
+
+    public void setClubId(int clubId) {
+        this.clubId = clubId;
     }
 }
