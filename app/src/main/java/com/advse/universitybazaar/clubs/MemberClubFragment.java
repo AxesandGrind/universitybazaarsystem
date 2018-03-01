@@ -76,7 +76,7 @@ public class MemberClubFragment extends Fragment {
                     //clubList.add(snapShot.getValue(Club.class));
                     for(DataSnapshot m : snapShot.child("members").getChildren()){
                         members.put(m.getKey(), m.getValue().toString());
-                        System.out.println(m);
+                        //System.out.println(m);
                     }
                     if(!members.isEmpty() && members.containsKey(ownerID ))
                         addToView(snapShot.getValue(Club.class));
@@ -146,7 +146,7 @@ public class MemberClubFragment extends Fragment {
 
     public void showClub(int id){
         Intent clubHome = new Intent(getActivity().getApplicationContext(), com.advse.universitybazaar.clubs.SelectedClubHome.class);
-        clubHome.putExtra("clubId",id);
+        clubHome.putExtra("clubId",String.valueOf(id) );
         startActivity(clubHome);
 
     }

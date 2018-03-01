@@ -15,7 +15,7 @@
         android:id="@+id/deleteClub"
         android:layout_width="match_parent"
         android:textColor="#FFFFFF"
-        android:background="@color/colorAccent"
+        android:background="@android:color/holo_red_dark"
         android:layout_height="70dp" />
 
     <TextView

@@ -48,6 +48,8 @@ public class UserAdapter extends ArrayAdapter<Student>{
 
         clubMemberName.setText(student.getName());
 
+
+
         deleteMemberButton.setText("Delete");
         deleteMemberButton.setOnClickListener(new View.OnClickListener() {
 
@@ -69,6 +71,12 @@ public class UserAdapter extends ArrayAdapter<Student>{
             }
         });
         return convertView;
+    }
+
+    public void refreshMembersList(List<Student> membersList) {
+        this.membersList.clear();
+        this.membersList.addAll(membersList);
+        notifyDataSetChanged();
     }
 
 }
