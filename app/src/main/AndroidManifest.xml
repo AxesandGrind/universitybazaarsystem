@@ -6,12 +6,12 @@
         android:minSdkVersion="23"
         android:targetSdkVersion="23" />
 
-    <uses-feature android:name="android.hardware.type.watch" />
-
+    <!--<uses-feature android:name="android.hardware.type.watch" />-->
+<!--
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />-->
 
     <application
         android:allowBackup="true"
@@ -20,7 +20,7 @@
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
         <activity android:name=".register.RegisterActivity" />
-        <activity android:name=".register.LoginActivity">
+        <activity android:name=".trade.SellItemActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,21 +33,18 @@
         <activity android:name=".clubs.SelectedClubHome" />
         <activity android:name=".messages.MessageHome" />
         <activity android:name=".posts.PostHome" />
-
-        <uses-library
-            android:name="com.google.android.wearable"
-            android:required="true" />
         <!--
                Set to true if your app is Standalone, that is, it does not require the handheld
                app to run.
         -->
-        <meta-data
-            android:name="com.google.android.wearable.standalone"
-            android:value="true" />
+        <!--<meta-data-->
+            <!--android:name="com.google.android.wearable.standalone"-->
+            <!--android:value="true" />-->
 
         <activity
             android:name=".trade.TradeActivity"
             android:label="@string/title_activity_trade" />
+        <!--<activity android:name=".trade.SellItemActivity"></activity>-->
     </application>
 
 </manifest>
