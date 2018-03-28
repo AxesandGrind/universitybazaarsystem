@@ -47,6 +47,7 @@ public class ClubHome extends FragmentActivity {
 
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
         if(requestCode == requesId && resultCode == RESULT_OK) {
             Snackbar snack = Snackbar.make(findViewById(R.id.Snackbar_ClubHome),"Club created successfully",Snackbar.LENGTH_SHORT);
             snack.getView().setBackgroundColor(Color.parseColor("#298E10"));

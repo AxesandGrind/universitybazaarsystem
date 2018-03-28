@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -25,6 +26,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -40,6 +44,7 @@ public class AllClubsFragment extends Fragment {
     boolean finished = false;
     //ArrayList<Club> clubList;
     String ownerID;
+    private int requestCode = 1;
 
 
     public AllClubsFragment() {
@@ -82,7 +87,7 @@ public class AllClubsFragment extends Fragment {
                         members.put(m.getKey(), m.getValue().toString());
                         //System.out.println(m);
                     }
-                    if(!members.containsKey(ownerID ) && !club.getClubOwner().equals(ownerID) ){
+                    if(!members.containsKey(ownerID) && !club.getClubOwner().equals(ownerID) ){
                         System.out.println(club.getClubName());
 
                         addToView(club);
@@ -113,7 +118,7 @@ public class AllClubsFragment extends Fragment {
 
     public void addToView(Club club){
         final int clubId = club.getClubId();
-        tr= new TableRow(getActivity());
+        tr = new TableRow(getActivity());
         layoutparamstr = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.MATCH_PARENT);
         layoutparamstr.setMargins(0, 30,0, 30);
@@ -156,5 +161,4 @@ public class AllClubsFragment extends Fragment {
         startActivity(clubHome);
 
     }
-
 }

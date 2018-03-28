@@ -27,12 +27,10 @@
         <activity android:name=".clubs.SelectedClubHome" />
         <activity android:name=".messages.MessageHome" />
         <activity android:name=".posts.PostHome" />
-
-
-
         <activity
             android:name=".trade.TradeActivity"
             android:label="@string/title_activity_trade" />
+
     </application>
 
 </manifest>
