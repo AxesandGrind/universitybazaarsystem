@@ -16,6 +16,7 @@ import com.advse.universitybazaar.R;
 import com.advse.universitybazaar.clubs.ClubHome;
 import com.advse.universitybazaar.messages.MessageHome;
 import com.advse.universitybazaar.posts.PostHome;
+import com.advse.universitybazaar.trade.TradeActivity;
 
 public class UserHome extends AppCompatActivity {
 
@@ -51,6 +52,7 @@ public class UserHome extends AppCompatActivity {
         });*/
 
         final Button clubHome = (Button) findViewById(R.id.clubButton);
+        final Button tradeHome = (Button) findViewById(R.id.tradeButton);
         final Button postsHome = (Button) findViewById(R.id.postButton);
         final Button mesageHome = (Button) findViewById(R.id.messageButton);
         final Button logoutButton = (Button) findViewById(R.id.logout);
@@ -62,6 +64,18 @@ public class UserHome extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        //Market place
+        tradeHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), TradeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         postsHome.setOnClickListener(new View.OnClickListener() {
             @Override
