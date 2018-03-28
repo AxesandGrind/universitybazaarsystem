@@ -15,10 +15,6 @@
         android:layout_marginTop="32dp"
         android:layout_weight="1"
         android:scaleType="fitXY"
-        android:src="@drawable/index1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></ImageView>
+        android:src="@drawable/index1" />
 
 </android.support.constraint.ConstraintLayout>

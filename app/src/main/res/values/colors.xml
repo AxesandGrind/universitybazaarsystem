@@ -4,4 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="bg">#29BD53</color>
+
+    <color name="colorPrimaryTab">#125688</color>
+    <color name="colorPrimaryDarkTab">#125688</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccentTab">#c8e8ff</color>
 </resources>

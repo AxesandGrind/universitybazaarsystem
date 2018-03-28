@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.advse.universitybazaar.bean.Student;
+import com.advse.universitybazaar.R;
 import com.google.firebase.database.*;
 
 public class LoginActivity extends AppCompatActivity {
@@ -29,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         SharedPreferences pref = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
         String currentPref =  pref.getString("mavID",null);
