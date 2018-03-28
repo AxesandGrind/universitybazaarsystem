@@ -1,5 +1,6 @@
 package com.advse.universitybazaar.clubs;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public class SelectedClubHome extends AppCompatActivity {
     private String mavID;
     private String userName;
     private String clubID;
+    private ValueEventListener clubRefListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class SelectedClubHome extends AppCompatActivity {
         ListView clubMembersList = (ListView) findViewById(R.id.listOfStudents);
         clubMembersList.setAdapter(listAdapter);
 
-        clubRef.addValueEventListener(new ValueEventListener() {
+        clubRefListener = clubRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -109,9 +111,12 @@ public class SelectedClubHome extends AppCompatActivity {
                             db.child("Clubs/").addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    dataSnapshot.child(String.valueOf(club.getClubId())).getRef().removeValue();
-                                    Intent intent = new Intent(getApplicationContext(),ClubHome.class);
-                                    startActivity(intent);
+                                    Intent intent = new Intent();
+                                    intent.putExtra("deleteClub","true");
+                                    intent.putExtra("deleteClubID",String.valueOf(club.getClubId()));
+                                    setResult(Activity.RESULT_OK,intent);
+                                    clubRef.removeEventListener(clubRefListener);
+                                    finish();
                                 }
 
                                 @Override
@@ -189,6 +194,7 @@ public class SelectedClubHome extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
+                System.out.println(dataSnapshot);
                 List<Student> updatedList = new ArrayList<>();
 
                 for(DataSnapshot m : dataSnapshot.child("members").getChildren()){
