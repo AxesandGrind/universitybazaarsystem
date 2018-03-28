@@ -26,12 +26,23 @@
             android:text="Clubs" />
 
         <Button
-            android:id="@+id/messageButton"
+            android:id="@+id/tradeButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/clubButton"
+            android:layout_marginTop="35dp"
+            android:text="Market Place" />
+
+
+        <Button
+            android:id="@+id/messageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tradeButton"
             android:layout_marginTop="35dp"
             android:text="Messages" />
 

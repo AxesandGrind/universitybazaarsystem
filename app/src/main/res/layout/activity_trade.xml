@@ -1,18 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/Snackbar_ClubHome"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<android.support.design.widget.CoordinatorLayout xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:id="@+id/Snackbar_TradeHome"-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto">-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp" >
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".trade.TradeActivity">
+    <!--<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--xmlns:tools="http://schemas.android.com/tools"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--tools:context=".trade.TradeActivity">-->
+
+        <Button
+            android:id="@+id/bought"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="41dp"
+            android:text="Bought Items" />
+
+         <Button
+             android:id="@+id/forSale"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentEnd="true"
+             android:layout_alignParentStart="true"
+             android:layout_below="@+id/bought"
+             android:layout_marginTop="35dp"
+             android:text="Items For Sale" />
+
+         <Button
+             android:id="@+id/posted"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentEnd="true"
+             android:layout_alignParentStart="true"
+             android:layout_below="@+id/forSale"
+             android:layout_marginTop="35dp"
+             android:text="Items Posted" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/CreateItemButton"
@@ -22,28 +58,25 @@
             android:layout_marginBottom="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginTop="479dp"
-            android:src="@drawable/ic_create_club_plus"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            android:src="@drawable/ic_create_club_plus" />
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:layout_constraintVertical_bias="1.0" />-->
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/itemsTabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:tabMode="fixed"
-            app:tabGravity="fill"
-            android:background="@color/colorPrimary" />
+        <!--<android.support.design.widget.TabLayout-->
+            <!--android:id="@+id/itemsTabLayout"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:tabMode="fixed"-->
+            <!--app:tabGravity="fill"-->
+            <!--android:background="@color/colorPrimary" />-->
 
-        <!-- View pager to swipe views -->
-        <android.support.v4.view.ViewPager
-            android:id="@+id/itemsPager"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="157dp" />
 
-    </android.support.constraint.ConstraintLayout>
 
-</android.support.design.widget.CoordinatorLayout>
+    <!--</android.support.constraint.ConstraintLayout>-->
+
+<!--</android.support.design.widget.CoordinatorLayout>-->
+
+
+</RelativeLayout>

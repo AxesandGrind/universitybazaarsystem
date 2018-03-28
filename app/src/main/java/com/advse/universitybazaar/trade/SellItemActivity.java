@@ -56,7 +56,7 @@ public class SellItemActivity extends AppCompatActivity {
     }
 
     public void createClub() {
-        /*db = FirebaseDatabase.getInstance().getReference("Clubs/");
+        db = FirebaseDatabase.getInstance().getReference("items/");
         Query getLastRow = db.orderByKey().limitToLast(1);
 
         getLastRow.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -83,7 +83,7 @@ public class SellItemActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });*/
+        });
     }
 
     public boolean validate() {
