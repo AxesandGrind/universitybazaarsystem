@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.advse.universitybazaar.bean.Club;
 import com.advse.universitybazaar.R;
@@ -26,6 +28,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,7 +46,8 @@ public class OwnerClubFragment extends Fragment {
     boolean finished = false;
     ArrayList<Club> clubList;
     String ownerID;
-
+    private int request = 3;
+    private View view;
 
     public OwnerClubFragment() {
         // Required empty public constructor
@@ -62,7 +68,7 @@ public class OwnerClubFragment extends Fragment {
         System.out.println(ownerID);
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_owner_club,container,false);
+        view = inflater.inflate(R.layout.fragment_owner_club,container,false);
         table = (TableLayout) view.findViewById(R.id.table);
 
         db = FirebaseDatabase.getInstance().getReference("Clubs/");
@@ -143,8 +149,32 @@ public class OwnerClubFragment extends Fragment {
     public void showClub(int id){
         Intent clubHome = new Intent(getActivity().getApplicationContext(), com.advse.universitybazaar.clubs.SelectedClubHome.class);
         clubHome.putExtra("clubId",String.valueOf(id) );
-        startActivity(clubHome);
-
+        OwnerClubFragment.this.startActivityForResult(clubHome,request);
     }
+
+    @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK && data!=null) {
+            if(data.getStringExtra("deleteClub")!=null && data.getStringExtra("deleteClub").equals("true")) {
+                final String clubID = data.getStringExtra("deleteClubID");
+                DatabaseReference db1 = db;
+                db1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        dataSnapshot.child(clubID).getRef().removeValue();
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                Toast.makeText(getActivity().getApplicationContext(), clubID, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
 }
