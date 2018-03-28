@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.advse.universitybazaar.R;
 import com.advse.universitybazaar.clubs.ClubHome;
 import com.advse.universitybazaar.messages.MessageHome;
 import com.advse.universitybazaar.posts.PostHome;
@@ -23,11 +24,11 @@ public class UserHome extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_home);
+        setContentView(R .layout.activity_user_home);
 
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
         String setTitle = prefs.getString("name",null);
-        getSupportActionBar().setTitle(setTitle + "'s Home");
+        //getSupportActionBar().setTitle(setTitle + "'s Home");
 
        /* navbarLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

@@ -1,71 +1,74 @@
 package com.advse.universitybazaar.bean;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.*;
+import android.widget.*;
 
 import com.google.firebase.database.*;
 
-import com.advse.universitybazaar.register.R;
+import com.advse.universitybazaar.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by shahsk0901 on 2/28/18.
  */
 
-public class UserAdapter extends ArrayAdapter<Student>{
+public class UserAdapter extends ArrayAdapter<Student> {
 
-    private Context context;
+    ViewHolder holder;
     private List<Student> membersList;
     private DatabaseReference db;
-    public UserAdapter(@NonNull Context context, int resource, List<Student> membersList) {
+    private SharedPreferences prefs;
+
+    public UserAdapter(@NonNull Context context, int resource,List<Student> membersList) {
         super(context,resource,membersList);
-        this.context = context;
         this.membersList = membersList;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        db = FirebaseDatabase.getInstance().getReference();
+        if(convertView == null) {
 
-        SharedPreferences prefs = context.getSharedPreferences("LOGIN_PREF",Context.MODE_PRIVATE);
+            prefs = getContext().getSharedPreferences("LOGIN_PREF",Context.MODE_PRIVATE);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.club_member_list_layout,parent,false);
+
+            holder = new ViewHolder();
+            holder.clubMemberName = (TextView) convertView.findViewById(R.id.clubMemberName);
+            holder.clubMemberActions = (Button) convertView.findViewById(R.id.deleteMember);
+            db = FirebaseDatabase.getInstance().getReference();
+            convertView.setTag(holder);
+
+        }
+
+        holder = (ViewHolder) convertView.getTag();
+
         final String currentUser = prefs.getString("mavID",null);
 
         final Student student = membersList.get(position);
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        convertView = inflater.inflate(R.layout.club_member_list_layout,parent,false);
 
-        final TextView clubMemberName = (TextView) convertView.findViewById(R.id.clubMemberName);
-        final Button deleteMemberButton = (Button) convertView.findViewById(R.id.deleteMember);
-        deleteMemberButton.setVisibility(View.GONE);
+        holder.clubMemberActions.setVisibility(View.GONE);
 
-        clubMemberName.setText(student.getName());
+        holder.clubMemberName.setText(student.getName());
 
         db.child("Clubs/" + student.getClubId()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Club club = dataSnapshot.getValue(Club.class);
                 if(club.getClubOwner().equals(currentUser) && student.getType().equals("M")) {
-                    deleteMemberButton.setText("Delete");
-                    deleteMemberButton.setVisibility(View.VISIBLE);
-                    deleteMemberButton.setOnClickListener(new View.OnClickListener() {
+                    holder.clubMemberActions.setText("Delete");
+                    holder.clubMemberActions.setVisibility(View.VISIBLE);
+                    holder.clubMemberActions.setOnClickListener(new View.OnClickListener() {
 
                         @Override
                         public void onClick(View v) {
 
-                            db = db.child("Clubs").child(String.valueOf(student.getClubId())).child("members").child(student.getMavID());
-                            db.addValueEventListener(new ValueEventListener() {
+                            DatabaseReference db1 = db.child("Clubs").child(String.valueOf(student.getClubId())).child("members").child(student.getMavID());
+                            db1.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     dataSnapshot.getRef().removeValue();
@@ -80,18 +83,18 @@ public class UserAdapter extends ArrayAdapter<Student>{
                     });
                 }
                 else if(club.getClubOwner().equals(currentUser) && student.getType().equals("R")) {
-                    deleteMemberButton.setText("Approve");
-                    deleteMemberButton.setVisibility(View.VISIBLE);
-                    deleteMemberButton.setOnClickListener(new View.OnClickListener() {
+                    holder.clubMemberActions.setText("Approve");
+                    holder.clubMemberActions.setVisibility(View.VISIBLE);
+                    holder.clubMemberActions.setOnClickListener(new View.OnClickListener() {
 
                         @Override
                         public void onClick(View v) {
 
-                            db = db.child("Clubs").child(String.valueOf(student.getClubId())).child("requests").child(student.getMavID());
-                            db.addValueEventListener(new ValueEventListener() {
+                            DatabaseReference db1 = db.child("Clubs").child(String.valueOf(student.getClubId())).child("requests").child(student.getMavID());
+                            db1.addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    db.getParent().getParent().child("members").child(student.getMavID()).setValue(student.getName());
+                                    db.child("Clubs").child(String.valueOf(student.getClubId())).child("members").child(student.getMavID()).setValue(student.getName());
                                     dataSnapshot.getRef().removeValue();
                                 }
 
@@ -119,7 +122,11 @@ public class UserAdapter extends ArrayAdapter<Student>{
     public void refreshMembersList(List<Student> membersList) {
         this.membersList.clear();
         this.membersList.addAll(membersList);
-        notifyDataSetChanged();
+    }
+
+    static class ViewHolder {
+        TextView clubMemberName;
+        Button clubMemberActions;
     }
 
 }

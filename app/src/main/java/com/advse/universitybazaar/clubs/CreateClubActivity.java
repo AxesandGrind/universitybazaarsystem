@@ -9,10 +9,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.advse.universitybazaar.bean.Club;
-import com.advse.universitybazaar.register.R;
+import com.advse.universitybazaar.R;
 import com.google.firebase.database.*;
 
 import java.util.ArrayList;

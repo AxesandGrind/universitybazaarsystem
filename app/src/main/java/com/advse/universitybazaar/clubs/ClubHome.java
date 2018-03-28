@@ -5,19 +5,21 @@ import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.advse.universitybazaar.register.R;
+import com.advse.universitybazaar.R;
 
 
 
-public class ClubHome extends AppCompatActivity implements TabLayout.OnTabSelectedListener {
+public class ClubHome extends FragmentActivity {
 
     private TabLayout clubTabLayout;
     private ViewPager clubViewPager;
+    private ClubTabsManager manager;
 
     private static final int requesId = 12345;
 
@@ -25,8 +27,6 @@ public class ClubHome extends AppCompatActivity implements TabLayout.OnTabSelect
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_home);
-
-        getSupportActionBar().setTitle("Clubs");
 
         FloatingActionButton createClubButon = (FloatingActionButton) findViewById(R.id.CreateClubButton);
         createClubButon.setOnClickListener(new View.OnClickListener() {
@@ -37,19 +37,10 @@ public class ClubHome extends AppCompatActivity implements TabLayout.OnTabSelect
             }
         });
 
-        clubTabLayout = (TabLayout) findViewById(R.id.clubsTabLayout);
         clubViewPager = (ViewPager) findViewById(R.id.clubsPager);
+        setViewPager(clubViewPager);
 
-        clubTabLayout.addTab(clubTabLayout.newTab().setText("All Clubs"));
-        clubTabLayout.addTab(clubTabLayout.newTab().setText("Member Clubs"));
-        clubTabLayout.addTab(clubTabLayout.newTab().setText("Owned Clubs"));
-        clubTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
-        ClubTabsManager manager = new ClubTabsManager(getSupportFragmentManager(), clubTabLayout.getTabCount());
-
-        clubViewPager.setAdapter(manager);
-        clubTabLayout.setOnTabSelectedListener(this);
-
+        clubTabLayout = (TabLayout) findViewById(R.id.clubsTabLayout);
         clubTabLayout.setupWithViewPager(clubViewPager);
 
     }
@@ -70,18 +61,11 @@ public class ClubHome extends AppCompatActivity implements TabLayout.OnTabSelect
         super.onBackPressed();
     }
 
-    @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-        clubViewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(TabLayout.Tab tab) {
-
-    }
-
-    @Override
-    public void onTabReselected(TabLayout.Tab tab) {
-
+    private void setViewPager(ViewPager viewPager) {
+        ClubTabsManager adapter = new ClubTabsManager(getSupportFragmentManager());
+        adapter.addFragment(new AllClubsFragment(),"All Clubs");
+        adapter.addFragment(new MemberClubFragment(),"Member");
+        adapter.addFragment(new OwnerClubFragment(),"Owned Clubs");
+        viewPager.setAdapter(adapter);
     }
 }

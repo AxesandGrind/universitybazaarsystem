@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -14,15 +14,8 @@ import android.widget.Toast;
 import com.advse.universitybazaar.bean.Club;
 import com.advse.universitybazaar.bean.Student;
 import com.advse.universitybazaar.bean.UserAdapter;
-import com.advse.universitybazaar.register.R;
-import com.advse.universitybazaar.register.RegisterActivity;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+import com.advse.universitybazaar.R;
+import com.google.firebase.database.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,9 +25,9 @@ public class SelectedClubHome extends AppCompatActivity {
 
     private DatabaseReference db;
     private DatabaseReference clubRef;
+    private SharedPreferences sharedPreferences;
     private Button requestMembership;
     private Button deleteClub;
-    private TextView clubName;
     private TextView clubDescription;
     private TextView clubOwner;
     private List<Student> listOfStudents;
@@ -50,7 +43,7 @@ public class SelectedClubHome extends AppCompatActivity {
         setContentView(R.layout.activity_selected_club_home);
 
         // Get mavID from shared prefs and club id from intent bundle
-        SharedPreferences sharedPreferences = getSharedPreferences("LOGIN_PREF", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("LOGIN_PREF", MODE_PRIVATE);
         mavID = sharedPreferences.getString("mavID", null);
         userName = sharedPreferences.getString("name", null);
         Intent intent = getIntent();
@@ -65,20 +58,19 @@ public class SelectedClubHome extends AppCompatActivity {
         clubOwner = (TextView) findViewById(R.id.displayClubOwner);
 
         listOfStudents = new ArrayList<>();
-        listAdapter = new UserAdapter(getApplicationContext(),0,listOfStudents);
+        listAdapter = new UserAdapter(this,0,listOfStudents);
 
         ListView clubMembersList = (ListView) findViewById(R.id.listOfStudents);
         clubMembersList.setAdapter(listAdapter);
 
-
-        clubRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        clubRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 final Club club = dataSnapshot.getValue(Club.class);
                 System.out.print("\n\n\n\n\n\n\n\n\n" + club);
-                HashMap<String, String> members = new HashMap<String, String>();
-                HashMap<String, String> reuests = new HashMap<String, String>();
+                HashMap<String, String> members = new HashMap<>();
+                HashMap<String, String> requests = new HashMap<>();
                 //clubList.add(snapShot.getValue(Club.class));
                 for(DataSnapshot m : dataSnapshot.child("members").getChildren()){
                     listAdapter.add(new Student(m.getKey(),m.getValue().toString(),club.getClubId(),"M"));
@@ -86,11 +78,11 @@ public class SelectedClubHome extends AppCompatActivity {
                 }
                 for(DataSnapshot m : dataSnapshot.child("requests").getChildren()){
                     listAdapter.add(new Student(m.getKey(),m.getValue().toString(),club.getClubId(),"R"));
-                    reuests.put(m.getKey(), m.getValue().toString());
+                    requests.put(m.getKey(), m.getValue().toString());
                 }
 
                 //To display name, owner and description
-                getSupportActionBar().setTitle(club.getClubName());
+                //getSupportActionBar().setTitle(club.getClubName());
                 clubDescription.setText(club.getClubDescription());
 
                 // Getting owner name using the owner's id
@@ -138,12 +130,12 @@ public class SelectedClubHome extends AppCompatActivity {
                 }
                 else{
                     Query getRequests = clubRef.child("requests");
-                    getRequests.addListenerForSingleValueEvent(new ValueEventListener() {
+                    getRequests.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot snap) {
                             HashMap<String, String> requests = new HashMap<String, String>();
                             for(DataSnapshot r : snap.getChildren())
-                                requests.put(r.getKey(), r.getValue().toString());
+                                requests.put(r.getKey().toString(), r.getValue().toString());
 
                             if(requests.containsKey(mavID)){
                                 requestMembership.setVisibility(View.VISIBLE);
@@ -183,8 +175,8 @@ public class SelectedClubHome extends AppCompatActivity {
 
 
 
-       /* // Notifies as soon as a member is deleted from the club
-        ChildEventListener memberdeletedListener = new ChildEventListener() {
+        // Notifies as soon as a member is deleted from the club
+        ChildEventListener memberDeletedListener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
@@ -208,9 +200,6 @@ public class SelectedClubHome extends AppCompatActivity {
 
                 listAdapter.refreshMembersList(updatedList);
                 listAdapter.notifyDataSetChanged();
-                // Add the code here.....
-                Toast.makeText(getApplicationContext(),"Deleted",Toast.LENGTH_SHORT).show();
-                //listAdapter.refreshMembersList(pass new list here);
 
             }
 
@@ -224,6 +213,6 @@ public class SelectedClubHome extends AppCompatActivity {
 
             }
         };
-        clubRef.addChildEventListener(memberdeletedListener);*/
+        clubRef.addChildEventListener(memberDeletedListener);
     }
 }

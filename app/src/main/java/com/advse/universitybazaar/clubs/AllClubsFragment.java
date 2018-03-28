@@ -16,7 +16,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.advse.universitybazaar.bean.Club;
-import com.advse.universitybazaar.register.R;
+import com.advse.universitybazaar.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -46,6 +46,11 @@ public class AllClubsFragment extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +61,7 @@ public class AllClubsFragment extends Fragment {
         System.out.println(ownerID);
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_all_clubs, null);
+        View view = inflater.inflate(R.layout.fragment_all_clubs,container,false);
         table = (TableLayout) view.findViewById(R.id.table);
 
         db = FirebaseDatabase.getInstance().getReference("Clubs/");
@@ -79,6 +84,7 @@ public class AllClubsFragment extends Fragment {
                     }
                     if(!members.containsKey(ownerID ) && !club.getClubOwner().equals(ownerID) ){
                         System.out.println(club.getClubName());
+
                         addToView(club);
                     }
 
