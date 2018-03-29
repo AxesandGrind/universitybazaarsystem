@@ -23,7 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 
-public class BoughtItemsActivity extends AppCompatActivity {
+public class AllItemsActivity extends AppCompatActivity {
 
     TableLayout table ;
     TableRow tableRow;
@@ -60,7 +60,7 @@ public class BoughtItemsActivity extends AppCompatActivity {
                     Item item = snapShot.getValue(Item.class);
                     System.out.println(item.getName() + " " + item.getPrice());
                     //System.out.println(snapShot);
-                    if(item.getBuyerId().equals(ownerID)){
+                    if(!item.getSellerId().equals(ownerID)){
                         addToView(item);
                     }
                 }
@@ -122,7 +122,13 @@ public class BoughtItemsActivity extends AppCompatActivity {
         itemHome.putExtra("buyerId",item.getBuyerId());
         itemHome.putExtra("sellerId",item.getSellerId());
         itemHome.putExtra("price",String.valueOf(item.getPrice()));
-        itemHome.putExtra("buy","0");
+
+        if(!item.getBuyerId().trim().equals("")) {
+            itemHome.putExtra("buy","0");
+        }else {
+            itemHome.putExtra("buy","1");
+        }
+
 
         startActivity(itemHome);
 

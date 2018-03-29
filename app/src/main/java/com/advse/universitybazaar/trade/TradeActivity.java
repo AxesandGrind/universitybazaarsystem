@@ -26,7 +26,7 @@ public class TradeActivity extends AppCompatActivity {
         String setTitle = prefs.getString("name",null);
 
         Button boughtItemsButton = (Button) findViewById(R.id.bought);
-
+        Button allItemsButton = (Button) findViewById(R.id.forSale);
         boughtItemsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,6 +40,13 @@ public class TradeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent createItemIntent = new Intent(getApplicationContext(), SellItemActivity.class);
                 startActivityForResult(createItemIntent, requestId);
+            }
+        });
+        allItemsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), AllItemsActivity.class);
+                startActivity(intent);
             }
         });
     }
