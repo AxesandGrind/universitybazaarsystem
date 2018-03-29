@@ -68,7 +68,7 @@ public class UserAdapter extends ArrayAdapter<Student> {
                         public void onClick(View v) {
 
                             DatabaseReference db1 = db.child("Clubs").child(String.valueOf(student.getClubId())).child("members").child(student.getMavID());
-                            db1.addValueEventListener(new ValueEventListener() {
+                            db1.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     dataSnapshot.getRef().removeValue();
@@ -91,7 +91,7 @@ public class UserAdapter extends ArrayAdapter<Student> {
                         public void onClick(View v) {
 
                             DatabaseReference db1 = db.child("Clubs").child(String.valueOf(student.getClubId())).child("requests").child(student.getMavID());
-                            db1.addValueEventListener(new ValueEventListener() {
+                            db1.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     db.child("Clubs").child(String.valueOf(student.getClubId())).child("members").child(student.getMavID()).setValue(student.getName());
