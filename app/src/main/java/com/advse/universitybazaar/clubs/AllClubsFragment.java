@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.advse.universitybazaar.bean.Club;
 import com.advse.universitybazaar.R;
@@ -44,7 +45,8 @@ public class AllClubsFragment extends Fragment {
     boolean finished = false;
     //ArrayList<Club> clubList;
     String ownerID;
-    private int requestCode = 1;
+    private int request = 1;
+    private View view;
 
 
     public AllClubsFragment() {
@@ -66,7 +68,7 @@ public class AllClubsFragment extends Fragment {
         System.out.println(ownerID);
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_all_clubs,container,false);
+        view = inflater.inflate(R.layout.fragment_all_clubs,container,false);
         table = (TableLayout) view.findViewById(R.id.table);
 
         db = FirebaseDatabase.getInstance().getReference("Clubs/");
@@ -158,7 +160,32 @@ public class AllClubsFragment extends Fragment {
     public void showClub(int id){
         Intent clubHome = new Intent(getActivity().getApplicationContext(), com.advse.universitybazaar.clubs.SelectedClubHome.class);
         clubHome.putExtra("clubId",String.valueOf(id));
-        startActivity(clubHome);
+        startActivityForResult(clubHome,request);
+    }
 
+    @Override
+    public void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == RESULT_OK && data!=null) {
+            if(data.getStringExtra("requestMembership")!=null && data.getStringExtra("requestMembership").equals("true")) {
+                final String clubID = data.getStringExtra("requestedClub");
+                final String requesterID = data.getStringExtra("requesterID");
+                final String requesterName = data.getStringExtra("requesterName");
+                final DatabaseReference db1 = db.child(clubID);
+                db1.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        db1.child("requests").child(requesterID).setValue(requesterName);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                Toast.makeText(getActivity().getApplicationContext(),"Request Sent for Approval     ", Toast.LENGTH_LONG).show();
+            }
+        }
     }
 }
