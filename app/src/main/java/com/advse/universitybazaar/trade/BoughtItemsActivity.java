@@ -75,18 +75,19 @@ public class BoughtItemsActivity extends AppCompatActivity {
     }
 
     public void addToView(Item item){
-        final int itemId = item.getItemId();
+        final Item currentItem = item;
+        final String itemId = item.getItemId();
         tableRow = new TableRow(this);
         layoutparamstr = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.MATCH_PARENT);
         layoutparamstr.setMargins(0, 30,0, 30);
         tableRow.setLayoutParams(layoutparamstr);
-        tableRow.setId(item.getItemId());
+        tableRow.setId(Integer.valueOf(item.getItemId()));
         tableRow.setBackgroundColor(Color.GRAY);
         tableRow.setPadding(0, 40, 0, 40);
         tableRow.setOnClickListener(new TableRow.OnClickListener(){
             public void onClick(View v) {
-                showClub(itemId);
+                showItem(currentItem);
             }
         });
 
@@ -113,9 +114,16 @@ public class BoughtItemsActivity extends AppCompatActivity {
 
     }
 
-    public void showClub(int id){
+    public void showItem(Item item){
         Intent itemHome = new Intent(getApplicationContext(), ItemDetails.class);
-        itemHome.putExtra("itemId",String.valueOf(id));
+        itemHome.putExtra("itemId",String.valueOf(item.getItemId()));
+        itemHome.putExtra("name",item.getName());
+        itemHome.putExtra("description",item.getDescription());
+        itemHome.putExtra("buyerId",item.getBuyerId());
+        itemHome.putExtra("sellerId",item.getSellerId());
+        itemHome.putExtra("price",String.valueOf(item.getPrice()));
+        itemHome.putExtra("buy","0");
+
         startActivity(itemHome);
 
     }
