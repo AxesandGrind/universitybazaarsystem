@@ -27,6 +27,8 @@ public class TradeActivity extends AppCompatActivity {
 
         Button boughtItemsButton = (Button) findViewById(R.id.bought);
         Button allItemsButton = (Button) findViewById(R.id.forSale);
+        Button postedItemsButton = (Button) findViewById(R.id.posted);
+
         boughtItemsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,6 +48,13 @@ public class TradeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), AllItemsActivity.class);
+                startActivity(intent);
+            }
+        });
+        postedItemsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PostedItemsActivity.class);
                 startActivity(intent);
             }
         });
