@@ -48,6 +48,7 @@ public class SelectedClubHome extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("LOGIN_PREF", MODE_PRIVATE);
         mavID = sharedPreferences.getString("mavID", null);
         userName = sharedPreferences.getString("name", null);
+
         Intent intent = getIntent();
         clubID = intent.getStringExtra("clubId");
 
@@ -148,15 +149,21 @@ public class SelectedClubHome extends AppCompatActivity {
                                 deleteClub.setVisibility(View.GONE);
                             }
                             else{
+                                System.out.println("\n\n\n\n\n\n\n\n\n\n" + userName);
                                 requestMembership.setVisibility(View.VISIBLE);
                                 deleteClub.setVisibility(View.GONE);
                                 requestMembership.setText("Join");
                                 requestMembership.setOnClickListener(new Button.OnClickListener() {
                                     public void onClick(View v) {
-                                        clubRef.child("requests").child(mavID).setValue(userName);
-                                        requestMembership.setText("Request Sent");
-                                        requestMembership.setOnClickListener(null);
-                                        Toast.makeText(getApplicationContext(),"Request sent to the Owner",Toast.LENGTH_LONG).show();
+                                        //clubRef.child("requests").child(mavID).setValue(userName);
+                                        Intent intent = new Intent();
+                                        intent.putExtra("requestMembership","true");
+                                        intent.putExtra("requestedClub",String.valueOf(club.getClubId()));
+                                        intent.putExtra("requesterID",mavID);
+                                        intent.putExtra("requesterName",userName);
+                                        setResult(Activity.RESULT_OK,intent);
+                                        clubRef.removeEventListener(clubRefListener);
+                                        finish();
                                     }
                                 });
 
@@ -183,14 +190,10 @@ public class SelectedClubHome extends AppCompatActivity {
         // Notifies as soon as a member is deleted from the club
         ChildEventListener memberDeletedListener = new ChildEventListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-            }
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) { }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) { }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
@@ -210,14 +213,10 @@ public class SelectedClubHome extends AppCompatActivity {
             }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) { }
         };
         clubRef.addChildEventListener(memberDeletedListener);
     }

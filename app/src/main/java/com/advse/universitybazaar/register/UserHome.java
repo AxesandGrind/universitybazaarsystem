@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.advse.universitybazaar.R;
 import com.advse.universitybazaar.clubs.ClubHome;
@@ -29,6 +30,7 @@ public class UserHome extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
         String setTitle = prefs.getString("name",null);
+        Toast.makeText(getApplicationContext(),setTitle,Toast.LENGTH_SHORT).show();
         //getSupportActionBar().setTitle(setTitle + "'s Home");
 
        /* navbarLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
