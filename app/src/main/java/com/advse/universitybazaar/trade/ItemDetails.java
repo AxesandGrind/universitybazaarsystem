@@ -3,8 +3,10 @@ package com.advse.universitybazaar.trade;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.advse.universitybazaar.R;
 import com.advse.universitybazaar.bean.Item;
@@ -33,11 +35,21 @@ public class ItemDetails extends AppCompatActivity {
         priceTextView.setText(intent.getStringExtra("price"));
 
         buyItemButton = (Button) findViewById(R.id.buyItem);
-
+        System.out.println("--------------" + intent.getStringExtra("buy"));
         if(intent.getStringExtra("buy").equals("0")) {
 
-            buyItemButton.setEnabled(false);
+            //buyItemButton.setEnabled(false);
+            buyItemButton.setVisibility(View.INVISIBLE);
 
+        } else {
+            buyItemButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Toast.makeText(getApplicationContext(),"Successful",Toast.LENGTH_SHORT).show();
+
+                }
+            });
         }
 
     }
