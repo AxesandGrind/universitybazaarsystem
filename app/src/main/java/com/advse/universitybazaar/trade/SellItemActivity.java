@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.advse.universitybazaar.R;
 import com.advse.universitybazaar.bean.Club;
+import com.advse.universitybazaar.bean.Item;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,34 +50,41 @@ public class SellItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(validate()) {
-                    createClub();
+                    addItemToSale();
                 }
             }
         });
     }
 
-    public void createClub() {
-        db = FirebaseDatabase.getInstance().getReference("items/");
+    /**
+     * Adds the current item to the database
+     */
+    public void addItemToSale() {
+        db = FirebaseDatabase.getInstance().getReference("Items/");
         Query getLastRow = db.orderByKey().limitToLast(1);
-
         getLastRow.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
               //  GenericTypeIndicator<ArrayList<Club>> clubsIndicator = new GenericTypeIndicator<ArrayList<Club>>() {};
-                ArrayList<Club> clubList = new ArrayList<>();
-                for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
-                    clubList.add(snapShot.getValue(Club.class));
-                }
-                System.out.println(dataSnapshot);
                 SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
-                String ownerID = prefs.getString("mavID",null);
+                String sellerID = prefs.getString("mavID",null);
+                if(dataSnapshot == null) {
+                    Item item = new Item(1,itemName.getText().toString(),itemDescription.getText().toString(),"",
+                            sellerID,Integer.parseInt(itemPrice.getText().toString()));
+                    db.child("1").setValue(item);
+                } else {
+                    ArrayList<Item> itemList = new ArrayList<>();
+                    for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
+                        itemList.add(snapShot.getValue(Item.class));
+                    }
 
-                Club addClub = new Club(clubList.get(0).getClubId()+1,itemName.getText().toString(),
-                        itemDescription.getText().toString(),ownerID);
-                db.child(String.valueOf(clubList.get(0).getClubId()+1)).setValue(addClub);
+                    Item addItem = new Item(itemList.get(0).getItemId()+1,itemName.getText().toString(),
+                            itemDescription.getText().toString(),"",sellerID,Integer.parseInt(itemPrice.getText().toString()));
+                    db.child(String.valueOf(itemList.get(0).getItemId()+1)).setValue(addItem);
 
-                setResult(RESULT_OK,null);
-                finish();
+                    setResult(RESULT_OK,null);
+                    finish();
+                }
             }
 
             @Override
@@ -87,11 +95,10 @@ public class SellItemActivity extends AppCompatActivity {
     }
 
     public boolean validate() {
-        System.out.println("Validating");
         String name = itemName.getText().toString();
         String desc = itemDescription.getText().toString();
         String price = itemPrice.getText().toString();
-        if(name.length() <= 0 && desc.length() <= 0 && price.length()<= 0) {
+        if(name.length() <= 0 || desc.length() <= 0 || price.length()<= 0) {
             Snackbar snack = Snackbar.make(findViewById(R.id.Snackbar_Sell_Item),"Please Enter all the fields",Snackbar.LENGTH_SHORT);
             snack.getView().setBackgroundColor(Color.parseColor("#B21919"));
             snack.show();

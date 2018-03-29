@@ -67,7 +67,7 @@
                 android:layout_marginTop="100dp"
                 android:ems="10"
                 android:gravity="top|left"
-                android:hint="ItemNameTil Description"
+                android:hint="Item Description"
                 android:inputType="textMultiLine"
                 android:lines="6" />
         </android.support.design.widget.TextInputLayout>
