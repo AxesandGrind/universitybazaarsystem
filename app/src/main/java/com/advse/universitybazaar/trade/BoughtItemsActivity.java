@@ -76,7 +76,7 @@ public class BoughtItemsActivity extends AppCompatActivity {
 
     public void addToView(Item item){
         final Item currentItem = item;
-        final String itemId = item.getItemId();
+        final int itemId = item.getItemId();
         tableRow = new TableRow(this);
         layoutparamstr = new TableLayout.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,
                 TableRow.LayoutParams.MATCH_PARENT);
