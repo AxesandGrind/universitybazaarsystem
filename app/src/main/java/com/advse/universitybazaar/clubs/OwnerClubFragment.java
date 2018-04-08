@@ -171,7 +171,7 @@ public class OwnerClubFragment extends Fragment {
 
                     }
                 });
-                Toast.makeText(getActivity().getApplicationContext(), clubID, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity().getApplicationContext(), "Club Deleted", Toast.LENGTH_SHORT).show();
             }
         }
     }

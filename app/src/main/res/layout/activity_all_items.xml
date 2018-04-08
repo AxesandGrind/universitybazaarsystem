@@ -1,59 +1,67 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/Snackbar_All_Items"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.advse.universitybazaar.trade.AllItemsActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="41dp"
-        android:text="Items for Sale"
-        android:gravity="center"
-        android:textColor="@color/colorAccent"
-        android:textSize="30dp"
-        android:textStyle="bold" />
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:orientation="vertical"
+        tools:context="com.advse.universitybazaar.trade.AllItemsActivity">
 
-        <TableLayout
-            android:id="@+id/table"
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="41dp"
+            android:text="Items for Sale"
+            android:gravity="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="5dp">
+            android:padding="10dp">
 
-            <TableRow
-                android:id="@+id/header"
+            <TableLayout
+                android:id="@+id/table"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="5dp"
-                android:background="@android:color/holo_blue_bright"
-                android:paddingBottom="24dp"
-                android:paddingTop="24dp">
+                android:layout_marginTop="5dp">
 
-                <TextView
-                    android:id="@+id/headerColum1"
+                <TableRow
+                    android:id="@+id/header"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:clickable="true"
-                    android:text="Item Name"
-                    android:gravity="center" />
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="5dp"
+                    android:background="@android:color/holo_blue_bright"
+                    android:paddingBottom="24dp"
+                    android:paddingTop="24dp">
 
-                <TextView
-                    android:id="@+id/headerColumn2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="50"
-                    android:text="Price"
-                    android:gravity="center" />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/headerColum1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:clickable="true"
+                        android:text="Item Name"
+                        android:gravity="center" />
 
-        </TableLayout>
+                    <TextView
+                        android:id="@+id/headerColumn2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:text="Price"
+                        android:gravity="center" />
+                </TableRow>
 
+            </TableLayout>
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getSupportActionBar().hide();
+        getSupportActionBar().hide();
 
         SharedPreferences pref = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
         String currentPref =  pref.getString("mavID",null);
