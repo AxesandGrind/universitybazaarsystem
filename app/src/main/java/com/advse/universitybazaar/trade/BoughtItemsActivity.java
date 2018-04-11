@@ -39,6 +39,7 @@ public class BoughtItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bought_items);
+        getSupportActionBar().hide();
 
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF", Context.MODE_PRIVATE);
         ownerID = prefs.getString("mavID",null);

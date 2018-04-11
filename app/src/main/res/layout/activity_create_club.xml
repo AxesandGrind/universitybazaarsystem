@@ -29,7 +29,7 @@
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:hint="Club Name" />
-
+`
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout

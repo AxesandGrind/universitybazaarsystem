@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -34,11 +35,13 @@ public class AllItemsActivity extends AppCompatActivity {
     private DatabaseReference db;
     //ArrayList<Club> clubList;
     String ownerID;
+    private int requestCode = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bought_items);
+        setContentView(R.layout.activity_all_items);
+        getSupportActionBar().hide();
 
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF", Context.MODE_PRIVATE);
         ownerID = prefs.getString("mavID",null);
@@ -60,7 +63,7 @@ public class AllItemsActivity extends AppCompatActivity {
                     Item item = snapShot.getValue(Item.class);
                     System.out.println(item.getName() + " " + item.getPrice());
                     //System.out.println(snapShot);
-                    if(!item.getSellerId().equals(ownerID)){
+                    if(!item.getSellerId().equals(ownerID) && item.getBuyerId().trim().equals("") ){
                         addToView(item);
                     }
                 }
@@ -122,16 +125,22 @@ public class AllItemsActivity extends AppCompatActivity {
         itemHome.putExtra("buyerId",item.getBuyerId());
         itemHome.putExtra("sellerId",item.getSellerId());
         itemHome.putExtra("price",String.valueOf(item.getPrice()));
+        itemHome.putExtra("buy","1");
 
-        if(!item.getBuyerId().trim().equals("")) {
-            itemHome.putExtra("buy","0");
-        }else {
-            itemHome.putExtra("buy","1");
+        startActivityForResult(itemHome,requestCode);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode == requestCode && resultCode == RESULT_OK) {
+            Snackbar snack = Snackbar.make(findViewById(R.id.Snackbar_All_Items),"Item purchased",Snackbar.LENGTH_SHORT);
+            snack.getView().setBackgroundColor(Color.parseColor("#298E10"));
+            snack.show();
+        } else if(resultCode == RESULT_CANCELED) {
+
         }
-
-
-        startActivity(itemHome);
-
     }
 
 }
