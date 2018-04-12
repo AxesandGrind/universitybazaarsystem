@@ -10,19 +10,19 @@ public class Post {
     private String location;
     private String postOwnerId;
 
-    private ArrayList<Comment> comments = new ArrayList<>();
+    //private ArrayList<Comment> comments = new ArrayList<>();
 
     public Post() {
 
     }
 
-    public Post(int postId, String postHeading, String postDescription, String location,String postOwnerId, ArrayList<Comment> comments) {
+    public Post(int postId, String postHeading, String postDescription, String location,String postOwnerId) {
         this.postId = postId;
         this.postHeading = postHeading;
         this.postDescription = postDescription;
         this.location = location;
         this.postOwnerId = postOwnerId;
-        this.comments = comments;
+        //this.comments = comments;
     }
 
     public int getPostId() {

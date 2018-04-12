@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.advse.universitybazaar.R;
+import com.advse.universitybazaar.bean.Comment;
 import com.advse.universitybazaar.bean.Post;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -69,10 +70,15 @@ public class NewPostActivity extends AppCompatActivity {
                 SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
                 String postOwnerID = prefs.getString("mavID",null);
 
+//                ArrayList<Comment> comments = new ArrayList<>();
+//
+//                comments.add(new Comment(1, "", ""));
+
                 if(!dataSnapshot.hasChildren()) {
                     Post post = new Post(1,postHeading.getText().toString(),postDescription.getText().toString(),
                             postLocation.getText().toString(),postOwnerID);
                     db.child("1").setValue(post);
+                    db.child("1").child("comments").child("1").setValue(new Comment(1, "", ""));
                     setResult(RESULT_OK,null);
                     finish();
                 }
@@ -85,6 +91,7 @@ public class NewPostActivity extends AppCompatActivity {
                             postDescription.getText().toString(),postLocation.getText().toString(),postOwnerID);
 
                     db.child(String.valueOf(listOfPosts.get(0).getPostId() + 1)).setValue(post);
+                    db.child(String.valueOf(listOfPosts.get(0).getPostId() + 1)).child("comments").child("1").setValue(new Comment(1, "", ""));
                     setResult(RESULT_OK,null);
                     finish();
                 }
