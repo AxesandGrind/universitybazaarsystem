@@ -113,7 +113,7 @@ public class NewPostActivity extends AppCompatActivity {
         String location = postLocation.getText().toString();
 
         if(heading.length() <= 0 || description.length() <= 0 || location.length() <= 0) {
-            Snackbar snack = Snackbar.make(findViewById(R.id.Snackbar_Sell_Item),"Please Enter all the fields",Snackbar.LENGTH_SHORT);
+            Snackbar snack = Snackbar.make(findViewById(R.id.Snackbar_New_Post),"Please Enter all the fields",Snackbar.LENGTH_SHORT);
             snack.getView().setBackgroundColor(Color.parseColor("#B21919"));
             snack.show();
             return false;

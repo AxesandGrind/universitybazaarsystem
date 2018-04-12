@@ -99,11 +99,16 @@ public class PostDetailsActivity extends AppCompatActivity {
                 public void onClick(View v) {
 
                     headingTextView.setFocusable(true);
-                    headingTextView.requestFocus();
+                    headingTextView.setFocusableInTouchMode(true);
+
                     descriptionTextView.setFocusable(true);
+                    descriptionTextView.setFocusableInTouchMode(true);
+
                     locationTextView.setFocusable(true);
+                    locationTextView.setFocusableInTouchMode(true);
 
                     updateButton.setVisibility(View.INVISIBLE);
+
                     savePostButton.setVisibility(View.VISIBLE);
                     deleteButton.setVisibility(View.INVISIBLE);
                 }
@@ -124,7 +129,7 @@ public class PostDetailsActivity extends AppCompatActivity {
                             dataSnapshot.getRef().child("postDescription").
                                     setValue(descriptionTextView.getText().toString());
 
-                            dataSnapshot.getRef().child("postLocation").
+                            dataSnapshot.getRef().child("location").
                                     setValue(locationTextView.getText().toString());
                         }
 
