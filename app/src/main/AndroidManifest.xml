@@ -37,7 +37,11 @@
         <activity android:name=".trade.BoughtItemsActivity" />
         <activity android:name=".trade.ItemDetails" />
         <activity android:name=".trade.AllItemsActivity" />
-        <activity android:name=".trade.PostedItemsActivity"></activity>
+        <activity android:name=".trade.PostedItemsActivity" />
+        <activity android:name=".posts.NewPostActivity" />
+        <activity android:name=".posts.MyPostActivity" />
+        <activity android:name=".posts.OthersPostActivity" />
+        <activity android:name=".posts.PostDetailsActivity"></activity>
     </application>
 
 </manifest>
