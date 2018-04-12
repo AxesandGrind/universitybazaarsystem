@@ -25,7 +25,7 @@
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="41dp"
-            android:text="Your Posts"
+            android:text="My Posts"
             android:gravity="center"
             android:textColor="@color/colorAccent"
             android:textSize="30dp"
@@ -58,6 +58,15 @@
                         android:layout_weight="50"
                         android:clickable="true"
                         android:text="Post Heading"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/headerColum2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:clickable="true"
+                        android:text="Posted By"
                         android:gravity="center" />
 
 

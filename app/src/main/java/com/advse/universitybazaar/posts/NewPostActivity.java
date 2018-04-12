@@ -38,6 +38,7 @@ public class NewPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_post);
+        getSupportActionBar().hide();
 
         postHeading = (EditText) findViewById(R.id.postHeading);
         postDescription = (EditText) findViewById(R.id.postDescription);
