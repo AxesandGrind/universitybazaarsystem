@@ -6,15 +6,42 @@
     android:layout_height="match_parent"
     tools:context="com.advse.universitybazaar.posts.PostHome">
 
-    <ImageView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_weight="1"
-        android:scaleType="fitXY"
-        android:src="@drawable/index2" />
+        android:layout_height="match_parent"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp" >
+
+        <Button
+            android:id="@+id/yourPostButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="35dp"
+            android:text="Your Posts" />
+
+        <Button
+            android:id="@+id/othersPostButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/yourPostButton"
+            android:layout_marginTop="35dp"
+            android:text="Others Posts" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addNewPostButton"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_create_club_plus" />
+
+
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
