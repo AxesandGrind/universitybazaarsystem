@@ -1,5 +1,6 @@
 package com.advse.universitybazaar.posts;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
@@ -68,10 +69,12 @@ public class NewPostActivity extends AppCompatActivity {
                 SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
                 String postOwnerID = prefs.getString("mavID",null);
 
-                if(dataSnapshot == null) {
+                if(!dataSnapshot.hasChildren()) {
                     Post post = new Post(1,postHeading.getText().toString(),postDescription.getText().toString(),
                             postLocation.getText().toString(),postOwnerID);
                     db.child("1").setValue(post);
+                    setResult(RESULT_OK,null);
+                    finish();
                 }
                 else {
                     ArrayList<Post> listOfPosts = new ArrayList<>();

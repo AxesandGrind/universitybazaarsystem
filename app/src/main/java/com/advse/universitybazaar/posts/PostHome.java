@@ -1,7 +1,9 @@
 package com.advse.universitybazaar.posts;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +31,7 @@ public class PostHome extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), NewPostActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -56,5 +58,17 @@ public class PostHome extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(),UserHome.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode == 1 && resultCode == RESULT_OK) {
+            Snackbar snack = Snackbar.make(findViewById(R.id.Snackbar_PostHome),"Post Submitted Successfully",Snackbar.LENGTH_SHORT);
+            snack.getView().setBackgroundColor(Color.parseColor("#298E10"));
+            snack.show();
+        } else if(resultCode == RESULT_CANCELED) {
+
+        }
     }
 }

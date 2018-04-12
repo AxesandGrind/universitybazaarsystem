@@ -34,6 +34,7 @@ public class PostDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
 
+        getSupportActionBar().hide();
         intent = getIntent();
 
         headingTextView = (EditText) findViewById(R.id.postHeading);
@@ -47,6 +48,7 @@ public class PostDetailsActivity extends AppCompatActivity {
 
         updateButton = (Button) findViewById(R.id.updatePost);
         deleteButton = (Button) findViewById(R.id.deletePost);
+        savePostButton = (Button) findViewById(R.id.savePost);
 
         if(intent.getStringExtra("yourPost").equals("0")) {
 
@@ -59,11 +61,15 @@ public class PostDetailsActivity extends AppCompatActivity {
             updateButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    headingTextView.setInputType(InputType.TYPE_CLASS_TEXT);
-                    descriptionTextView.setInputType(InputType.TYPE_CLASS_TEXT);
-                    locationTextView.setInputType(InputType.TYPE_CLASS_TEXT);
+
+                    headingTextView.setFocusable(true);
+                    headingTextView.requestFocus();
+                    descriptionTextView.setFocusable(true);
+                    locationTextView.setFocusable(true);
+
                     updateButton.setVisibility(View.INVISIBLE);
                     savePostButton.setVisibility(View.VISIBLE);
+                    deleteButton.setVisibility(View.INVISIBLE);
                 }
             });
 
@@ -92,8 +98,14 @@ public class PostDetailsActivity extends AppCompatActivity {
                         }
                     });
 
+                    headingTextView.setFocusable(false);
+                    descriptionTextView.setFocusable(false);
+                    locationTextView.setFocusable(false);
+
                     updateButton.setVisibility(View.VISIBLE);
                     savePostButton.setVisibility(View.INVISIBLE);
+                    deleteButton.setVisibility(View.VISIBLE);
+
 
                 }
             });
@@ -116,9 +128,8 @@ public class PostDetailsActivity extends AppCompatActivity {
                         }
                     });
 
-                    Intent intent = new Intent(getApplicationContext(), MyPostActivity.class);
-                    startActivity(intent);
-
+                    setResult(RESULT_OK,null);
+                    finish();
                 }
             });
         }

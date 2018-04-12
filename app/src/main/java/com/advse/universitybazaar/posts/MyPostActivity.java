@@ -40,7 +40,7 @@ public class MyPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_others_post);
+        setContentView(R.layout.activity_my_post);
 
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF", Context.MODE_PRIVATE);
         ownerID = prefs.getString("mavID",null);
@@ -116,7 +116,19 @@ public class MyPostActivity extends AppCompatActivity {
         postHome.putExtra("postOwnerId" , post.getPostOwnerId());
         postHome.putExtra("yourPost","1");
 
-        startActivity(postHome);
+        startActivityForResult(postHome,1);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode == 1 && resultCode == RESULT_OK) {
+            Snackbar snack = Snackbar.make(findViewById(R.id.Snackbar_MyPost),"Post Deleted Successfully",Snackbar.LENGTH_SHORT);
+            snack.getView().setBackgroundColor(Color.parseColor("#298E10"));
+            snack.show();
+        } else if(resultCode == RESULT_CANCELED) {
+
+        }
     }
 }
 

@@ -6,18 +6,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context="com.advse.universitybazaar.posts.PostDetailsActivity">
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:textSize="28sp"
+        tools:context="com.advse.universitybazaar.posts.PostDetailsActivity">
 
     <EditText
         android:id="@+id/postHeading"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:text="Heading"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
-        android:textSize="28sp"
+        android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:inputType="none"
+        android:focusable="false"
+        android:inputType="text"
         app:layout_constraintTop_toBottomOf="parent"/>
 
     <TextView
@@ -36,7 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Post Description"
-        android:inputType="none"
+        android:focusable="false"
+        android:inputType="text"
         app:layout_constraintTop_toBottomOf="@+id/descLabel"/>
 
     <TextView
@@ -56,7 +59,8 @@
         android:layout_height="wrap_content"
         android:text="Location"
         android:textStyle="bold"
-        android:inputType="none"
+        android:focusable="false"
+        android:inputType="text"
         app:layout_constraintTop_toBottomOf="@+id/locationLabel"/>
 
     <RelativeLayout
@@ -70,14 +74,14 @@
         <Button
             android:id="@+id/updatePost"
             android:layout_width="150dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:textSize="18sp"
             android:letterSpacing="0.25"
             android:text="Update" />
         <Button
             android:id="@+id/deletePost"
             android:layout_width="150dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:textSize="18sp"
             android:letterSpacing="0.25"
@@ -86,7 +90,7 @@
         <Button
             android:id="@+id/savePost"
             android:layout_width="150dp"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:layout_marginLeft="15dp"
             android:textSize="18dp"
             android:letterSpacing="0.25"
@@ -110,7 +114,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/commentLayout"
         android:layout_marginTop="15dp"
-        app:layout_constraintTop_toBottomOf="@id/scrollView">
+        app:layout_constraintBottom_toTopOf="parent">
 
         <EditText
             android:id="@+id/postComment"
@@ -120,13 +124,13 @@
             android:textSize="16sp"
             android:inputType="text"
             app:layout_constraintTop_toBottomOf="parent"/>
-        <ImageButton
+        <Button
             android:id="@+id/postCommentButton"
             android:layout_width="50dp"
             android:layout_height="40dp"
             android:layout_marginLeft="15dp"
             android:background="@color/windowBackground"
-            android:src="@drawable/ic_send_24dp"
+            android:text="SEND"
             android:layout_toRightOf="@id/postComment" />
     </RelativeLayout>
 
