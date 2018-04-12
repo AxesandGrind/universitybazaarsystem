@@ -1,5 +1,7 @@
 package com.advse.universitybazaar.bean;
 
+import java.util.ArrayList;
+
 public class Post {
 
     private int postId;
@@ -7,6 +9,8 @@ public class Post {
     private String postDescription;
     private String location;
     private String postOwnerId;
+
+    //private ArrayList<Comment> comments = new ArrayList<>();
 
     public Post() {
 
@@ -18,6 +22,7 @@ public class Post {
         this.postDescription = postDescription;
         this.location = location;
         this.postOwnerId = postOwnerId;
+        //this.comments = comments;
     }
 
     public int getPostId() {

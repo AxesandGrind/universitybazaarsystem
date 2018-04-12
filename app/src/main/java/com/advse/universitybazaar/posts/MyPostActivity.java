@@ -32,6 +32,7 @@ public class MyPostActivity extends AppCompatActivity {
     TableLayout table;
     TableRow tableRow;
     TextView headingTextView;
+    TextView poster;
     TableLayout.LayoutParams layoutparamstr;
     TableRow.LayoutParams layoutparams;
     private DatabaseReference db;
@@ -41,6 +42,9 @@ public class MyPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post);
+
+        getSupportActionBar().hide();
+
 
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF", Context.MODE_PRIVATE);
         ownerID = prefs.getString("mavID",null);
@@ -101,6 +105,13 @@ public class MyPostActivity extends AppCompatActivity {
         headingTextView.setText(post.getPostHeading());
         headingTextView.setTextSize(15);
         tableRow.addView(headingTextView);
+
+        poster = new TextView(this);
+        poster.setLayoutParams(layoutparams);
+        poster.setGravity(Gravity.CENTER);
+        poster.setText(post.getPostOwnerId());
+        poster.setTextSize(15);
+        tableRow.addView(poster);
 
         table.addView(tableRow);
 

@@ -22,6 +22,7 @@ public class PostHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_home);
+        getSupportActionBar().setTitle("Post Home");
 
         newPostButton = (FloatingActionButton) findViewById(R.id.addNewPostButton);
         othersPostButton = (Button) findViewById(R.id.othersPostButton);

@@ -38,10 +38,10 @@
         <activity android:name=".trade.ItemDetails" />
         <activity android:name=".trade.AllItemsActivity" />
         <activity android:name=".trade.PostedItemsActivity" />
-        <activity android:name=".posts.NewPostActivity" />
+        <activity android:name=".posts.NewPostActivity" android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".posts.MyPostActivity" />
         <activity android:name=".posts.OthersPostActivity" />
-        <activity android:name=".posts.PostDetailsActivity"></activity>
+        <activity android:name=".posts.PostDetailsActivity" android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>
