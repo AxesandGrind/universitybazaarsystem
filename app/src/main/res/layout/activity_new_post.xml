@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="20dp"
-        tools:context="com.advse.universitybazaar.posts.NewPostActivity"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="35dp">
 
@@ -21,8 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="68dp">
+            android:layout_centerHorizontal="true">
 
             <EditText
                 android:id="@+id/postHeading"
@@ -39,9 +40,8 @@
             android:id="@+id/postDescriptionTil"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="203dp"
+            android:layout_below="@id/postHeadingTil"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <EditText
@@ -61,9 +61,8 @@
             android:id="@+id/postLocationTil"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="320dp"
+            android:layout_below="@id/postDescriptionTil"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <EditText
@@ -80,12 +79,11 @@
 
         <Button
             android:id="@+id/createPostButton"
-            android:layout_width="213dp"
-            android:layout_height="59dp"
-            android:layout_alignEnd="@+id/postLocationTil"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_below="@+id/postLocationTil"
-            android:layout_marginEnd="131dp"
             android:layout_marginTop="95dp"
+            android:letterSpacing="0.25"
             android:text="POST" />
 
     </RelativeLayout>

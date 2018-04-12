@@ -1,5 +1,6 @@
 package com.advse.universitybazaar.posts;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.design.widget.Snackbar;
@@ -11,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.advse.universitybazaar.R;
-import com.advse.universitybazaar.bean.Comment;
 import com.advse.universitybazaar.bean.Post;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -36,7 +36,7 @@ public class NewPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_post);
+        setContentView(R.layout.activity_new_post);
 
         postHeading = (EditText) findViewById(R.id.postHeading);
         postDescription = (EditText) findViewById(R.id.postDescription);
@@ -46,7 +46,7 @@ public class NewPostActivity extends AppCompatActivity {
         postDescriptionTIL = (TextInputLayout) findViewById(R.id.postDescriptionTil);
         postLocationTIL = (TextInputLayout) findViewById(R.id.postLocationTil);
 
-        postButton = (Button) findViewById(R.id.addNewPostButton);
+        postButton = (Button) findViewById(R.id.createPostButton);
 
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,15 +69,12 @@ public class NewPostActivity extends AppCompatActivity {
                 SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
                 String postOwnerID = prefs.getString("mavID",null);
 
-                ArrayList<Comment> comments = new ArrayList<>();
-
-                if(dataSnapshot == null) {
-
-
-                    comments.add(new Comment(1, "", ""));
+                if(!dataSnapshot.hasChildren()) {
                     Post post = new Post(1,postHeading.getText().toString(),postDescription.getText().toString(),
-                            postLocation.getText().toString(),postOwnerID, comments);
+                            postLocation.getText().toString(),postOwnerID);
                     db.child("1").setValue(post);
+                    setResult(RESULT_OK,null);
+                    finish();
                 }
                 else {
                     ArrayList<Post> listOfPosts = new ArrayList<>();
@@ -85,7 +82,7 @@ public class NewPostActivity extends AppCompatActivity {
                         listOfPosts.add(snap.getValue(Post.class));
                     }
                     Post post = new Post(listOfPosts.get(0).getPostId() + 1, postHeading.getText().toString(),
-                            postDescription.getText().toString(),postLocation.getText().toString(),postOwnerID, comments);
+                            postDescription.getText().toString(),postLocation.getText().toString(),postOwnerID);
 
                     db.child(String.valueOf(listOfPosts.get(0).getPostId() + 1)).setValue(post);
                     setResult(RESULT_OK,null);
