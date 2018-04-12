@@ -3,8 +3,10 @@ package com.advse.universitybazaar.posts;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.advse.universitybazaar.R;
@@ -16,11 +18,14 @@ import com.google.firebase.database.ValueEventListener;
 
 public class PostDetailsActivity extends AppCompatActivity {
 
-    TextView headingTextView;
-    TextView descriptionTextView;
-    TextView locationTextView;
+    EditText headingTextView;
+    EditText descriptionTextView;
+    EditText locationTextView;
+
     Button updateButton;
     Button deleteButton;
+    Button savePostButton;
+
     DatabaseReference db;
     Intent intent;
 
@@ -29,24 +34,27 @@ public class PostDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
 
+        getSupportActionBar().hide();
         intent = getIntent();
 
-        headingTextView = (TextView) findViewById(R.id.postHeading);
+        headingTextView = (EditText) findViewById(R.id.postHeading);
         headingTextView.setText(intent.getStringExtra("postHeading"));
 
-        descriptionTextView = (TextView) findViewById(R.id.postDescription);
+        descriptionTextView = (EditText) findViewById(R.id.postDescription);
         descriptionTextView.setText(intent.getStringExtra("postDescription"));
 
-        locationTextView = (TextView) findViewById(R.id.postLocation);
+        locationTextView = (EditText) findViewById(R.id.postLocation);
         locationTextView.setText(intent.getStringExtra("postLocation"));
 
         updateButton = (Button) findViewById(R.id.updatePost);
         deleteButton = (Button) findViewById(R.id.deletePost);
+        savePostButton = (Button) findViewById(R.id.savePost);
 
         if(intent.getStringExtra("yourPost").equals("0")) {
 
             updateButton.setVisibility(View.INVISIBLE);
             deleteButton.setVisibility(View.INVISIBLE);
+            savePostButton.setVisibility(View.INVISIBLE);
 
         }else {
 
@@ -54,18 +62,33 @@ public class PostDetailsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    db = FirebaseDatabase.getInstance().getReference("Posts/");
+                    headingTextView.setFocusable(true);
+                    headingTextView.requestFocus();
+                    descriptionTextView.setFocusable(true);
+                    locationTextView.setFocusable(true);
+
+                    updateButton.setVisibility(View.INVISIBLE);
+                    savePostButton.setVisibility(View.VISIBLE);
+                    deleteButton.setVisibility(View.INVISIBLE);
+                }
+            });
+
+            savePostButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    db = FirebaseDatabase.getInstance().getReference("Posts/").child(intent.getStringExtra("postId"));
                     db.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
-                            dataSnapshot.getRef().child(intent.getStringExtra("postId")).child("postHeading").
+                            dataSnapshot.getRef().child("postHeading").
                                     setValue(headingTextView.getText().toString());
 
-                            dataSnapshot.getRef().child(intent.getStringExtra("postId")).child("postDescription").
+                            dataSnapshot.getRef().child("postDescription").
                                     setValue(descriptionTextView.getText().toString());
 
-                            dataSnapshot.getRef().child(intent.getStringExtra("postId")).child("postLocation").
+                            dataSnapshot.getRef().child("postLocation").
                                     setValue(locationTextView.getText().toString());
                         }
 
@@ -75,6 +98,15 @@ public class PostDetailsActivity extends AppCompatActivity {
                         }
                     });
 
+                    headingTextView.setFocusable(false);
+                    descriptionTextView.setFocusable(false);
+                    locationTextView.setFocusable(false);
+
+                    updateButton.setVisibility(View.VISIBLE);
+                    savePostButton.setVisibility(View.INVISIBLE);
+                    deleteButton.setVisibility(View.VISIBLE);
+
+
                 }
             });
 
@@ -82,12 +114,12 @@ public class PostDetailsActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-                    db = FirebaseDatabase.getInstance().getReference("Posts/");
+                    db = FirebaseDatabase.getInstance().getReference("Posts/").child(intent.getStringExtra("postId"));
                     db.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
-                            dataSnapshot.child(intent.getStringExtra("postId")).getRef().removeValue();
+                            dataSnapshot.getRef().removeValue();
                         }
 
                         @Override
@@ -96,6 +128,8 @@ public class PostDetailsActivity extends AppCompatActivity {
                         }
                     });
 
+                    setResult(RESULT_OK,null);
+                    finish();
                 }
             });
         }
