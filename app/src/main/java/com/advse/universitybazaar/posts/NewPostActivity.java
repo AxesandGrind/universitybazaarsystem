@@ -35,7 +35,7 @@ public class NewPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_post);
+        setContentView(R.layout.activity_new_post);
 
         postHeading = (EditText) findViewById(R.id.postHeading);
         postDescription = (EditText) findViewById(R.id.postDescription);
@@ -45,7 +45,7 @@ public class NewPostActivity extends AppCompatActivity {
         postDescriptionTIL = (TextInputLayout) findViewById(R.id.postDescriptionTil);
         postLocationTIL = (TextInputLayout) findViewById(R.id.postLocationTil);
 
-        postButton = (Button) findViewById(R.id.addNewPostButton);
+        postButton = (Button) findViewById(R.id.createPostButton);
 
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
