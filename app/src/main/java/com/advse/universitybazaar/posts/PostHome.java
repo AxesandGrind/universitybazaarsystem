@@ -10,19 +10,29 @@ import android.view.View;
 import android.widget.Button;
 
 import com.advse.universitybazaar.R;
+import com.advse.universitybazaar.bean.BaseActivity;
 import com.advse.universitybazaar.register.UserHome;
 
-public class PostHome extends AppCompatActivity {
+public class PostHome extends BaseActivity{
 
     FloatingActionButton newPostButton;
     Button yourPostButton;
     Button othersPostButton;
 
+    public int getContentView() {
+        return R.layout.activity_post_home;
+    }
+
+    public int getNavigationId() {
+        return R.id.navigation_news;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_home);
-        getSupportActionBar().setTitle("Post Home");
+
+        getContentView();
+        getNavigationId();
 
         newPostButton = (FloatingActionButton) findViewById(R.id.addNewPostButton);
         othersPostButton = (Button) findViewById(R.id.othersPostButton);

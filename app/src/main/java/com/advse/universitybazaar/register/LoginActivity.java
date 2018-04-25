@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.advse.universitybazaar.bean.Student;
 import com.advse.universitybazaar.R;
+import com.advse.universitybazaar.posts.PostHome;
 import com.google.firebase.database.*;
 
 public class LoginActivity extends AppCompatActivity {
@@ -29,13 +31,13 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
 
         SharedPreferences pref = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
         String currentPref =  pref.getString("mavID",null);
         if(currentPref != null) {
-            Intent intent = new Intent(getApplicationContext(),UserHome.class);
+            Intent intent = new Intent(getApplicationContext(),PostHome.class);
             startActivity(intent);
         }
 
@@ -95,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,R.style.Theme_AppCompat_Light_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,R.style.loginDialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating..");
         progressDialog.setCancelable(false);
@@ -128,9 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        new android.os.Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
+        new android.os.Handler().postDelayed(() -> {
                 loginButton.setEnabled(true);
                 if(loginSuccess) {
                     progressDialog.dismiss();
@@ -139,11 +139,17 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(UserHome);
                 } else {
                     progressDialog.dismiss();
-                    Toast.makeText(getApplicationContext(),"Invalid Credentials",Toast.LENGTH_LONG).show();
+                    makeErrorSnack("Invalid Credentials");
+                    /*Snackbar snack = Snackbar.make(findViewById(R.id.Snackbar_Login),
+                            "Your message", Snackbar.LENGTH_LONG);
+                    CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams)
+                            snack.getView().getLayoutParams();
+                    params.setMargins(0, 10, 0, 56);
+                    snack.getView().setLayoutParams(params);
+                    snack.show();*/
                     mavID.setText("");
                     password.setText("");
                 }
-            }
         },2000);
     }
 

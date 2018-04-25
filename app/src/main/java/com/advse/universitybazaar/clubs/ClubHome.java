@@ -12,10 +12,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.advse.universitybazaar.R;
+import com.advse.universitybazaar.bean.BaseActivity;
 
 
-
-public class ClubHome extends FragmentActivity {
+public class ClubHome extends BaseActivity {
 
     private TabLayout clubTabLayout;
     private ViewPager clubViewPager;
@@ -23,10 +23,20 @@ public class ClubHome extends FragmentActivity {
 
     private static final int requesId = 12345;
 
+    public int getContentView() {
+        return R.layout.activity_club_home;
+    }
+
+    public int getNavigationId() {
+        return R.id.navigation_clubs;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_club_home);
+
+        getContentView();
+        getNavigationId();
 
         FloatingActionButton createClubButon = (FloatingActionButton) findViewById(R.id.CreateClubButton);
         createClubButon.setOnClickListener(new View.OnClickListener() {

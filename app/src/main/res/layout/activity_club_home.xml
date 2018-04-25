@@ -17,30 +17,32 @@
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/CreateClubButton"
             android:layout_width="56dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
+            android:layout_height="56dp"
             android:layout_marginBottom="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginTop="479dp"
-            android:src="@drawable/ic_create_club_plus"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginRight="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/navigation"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            android:src="@drawable/ic_create_club_plus" />
 
         <android.support.design.widget.TabLayout
             android:id="@+id/clubsTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:tabSelectedTextColor="@android:color/white"
+            app:tabTextColor="@color/nav_unchecked"
             app:tabMode="fixed"
             app:tabGravity="fill"
-            android:background="@color/colorPrimary" />
+            android:background="@android:color/transparent" />
 
         <!-- View pager to swipe views -->
         <android.support.v4.view.ViewPager
             android:id="@+id/clubsPager"
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"/>
+            android:layout_height="fill_parent"
+            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"/>
+
+        <include layout="@layout/bottom_navigation_view"/>
 
     </android.support.constraint.ConstraintLayout>
 

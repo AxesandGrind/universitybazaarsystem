@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="TextView"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:textSize="40dp"
         android:textStyle="bold"/>
@@ -32,8 +32,9 @@
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textStyle="bold"/>
+        android:layout_marginTop="10dp"
+        android:textColor="@color/nav_unchecked"
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/priceLabel"
@@ -49,8 +50,9 @@
         android:id="@+id/price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Price"
-        android:textStyle="bold"/>
+        android:layout_marginTop="10dp"
+        android:textColor="@color/nav_unchecked"
+        android:text="Price" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -61,8 +63,10 @@
             android:id="@+id/buyItem"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:textSize="18dp"
-            android:letterSpacing="0.25"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:textSize="20sp"
+            android:letterSpacing="0.20"
             android:layout_marginTop="40dp"
             android:text="Buy Item" />
 
@@ -70,7 +74,9 @@
             android:id="@+id/cancel"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:textSize="18dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:textSize="20sp"
             android:letterSpacing="0.25"
             android:layout_marginTop="10dp"
             android:visibility="invisible"

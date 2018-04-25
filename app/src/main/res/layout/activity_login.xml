@@ -19,7 +19,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="128dp"
+            android:layout_marginTop="116dp"
             android:padding="12dp"
             android:alpha="0.8">
             <android.support.design.widget.TextInputLayout
@@ -30,6 +30,7 @@
                     android:id="@+id/mavID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="123456789"
                     android:hint="MaverickID"
                     android:textSize="16dp"
                     android:inputType="text" />
@@ -57,7 +58,7 @@
         <Button
             android:id="@+id/login"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="60dp"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
             android:padding="12dp"
@@ -68,10 +69,12 @@
         <Button
             android:id="@+id/register"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_below="@+id/login"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="74dp"
+            android:layout_gravity="center"
+            android:letterSpacing="0.15"
+            android:layout_marginTop="65dp"
             android:text="New User? Register Here" />
 
     </LinearLayout>
