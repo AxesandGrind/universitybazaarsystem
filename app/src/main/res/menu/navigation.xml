@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/navigation_news"
-        android:icon="@drawable/ic_home_24dp"
+        android:icon="@drawable/ic_news_24dp"
         android:title="Feed" />
 
     <item
@@ -26,6 +26,6 @@
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_user_24dp"
-        android:title="Settings" />
+        android:title="User" />
 
 </menu>
