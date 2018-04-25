@@ -51,7 +51,7 @@
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_create_club_plus" />
 
-
+    <include layout="@layout/bottom_navigation_view"/>
 
     </RelativeLayout>
 
