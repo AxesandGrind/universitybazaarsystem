@@ -29,7 +29,4 @@ dependencies {
     compileOnly 'com.google.android.wearable:wearable:2.3.0'
 }
 
-
-
-
 apply plugin: 'com.google.gms.google-services'
