@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_news"
+        android:icon="@drawable/ic_home_24dp"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_clubs"
+        android:icon="@drawable/ic_clubs_24dp"
+        android:title=""
+        app:showAsAction="collapseActionView" />
+
+    <item
+        android:id="@+id/navigation_market"
+        android:icon="@drawable/ic_store_24dp"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_messages"
+        android:icon="@drawable/ic_messages_24dp"
+        android:title="" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_user_24dp"
+        android:title="" />
+
+</menu>
