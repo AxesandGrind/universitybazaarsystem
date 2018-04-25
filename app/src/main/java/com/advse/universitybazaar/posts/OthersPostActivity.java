@@ -35,7 +35,6 @@ public class OthersPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_others_post);
-        getSupportActionBar().hide();
 
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF", Context.MODE_PRIVATE);
         ownerID = prefs.getString("mavID",null);

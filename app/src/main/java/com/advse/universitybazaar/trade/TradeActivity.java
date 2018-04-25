@@ -11,19 +11,30 @@ import android.view.View;
 import android.widget.Button;
 
 import com.advse.universitybazaar.R;
+import com.advse.universitybazaar.bean.BaseActivity;
 import com.advse.universitybazaar.clubs.ClubHome;
 import com.advse.universitybazaar.trade.SellItemActivity;
 
-public class TradeActivity extends AppCompatActivity {
+public class TradeActivity extends BaseActivity {
 
     private int requestId = 90;
+
+    public int getContentView() {
+        return R.layout.activity_trade;
+    }
+
+    public int getNavigationId() {
+        return R.id.navigation_market;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trade);
+
+        getContentView();
+        getNavigationId();
 
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
-        String setTitle = prefs.getString("name",null);
 
         Button boughtItemsButton = (Button) findViewById(R.id.bought);
         Button allItemsButton = (Button) findViewById(R.id.forSale);

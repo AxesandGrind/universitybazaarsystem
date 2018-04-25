@@ -5,27 +5,27 @@
     <item
         android:id="@+id/navigation_news"
         android:icon="@drawable/ic_home_24dp"
-        android:title="" />
+        android:title="Feed" />
 
     <item
         android:id="@+id/navigation_clubs"
         android:icon="@drawable/ic_clubs_24dp"
-        android:title=""
+        android:title="Clubs"
         app:showAsAction="collapseActionView" />
 
     <item
         android:id="@+id/navigation_market"
         android:icon="@drawable/ic_store_24dp"
-        android:title="" />
+        android:title="Market" />
 
     <item
         android:id="@+id/navigation_messages"
         android:icon="@drawable/ic_messages_24dp"
-        android:title="" />
+        android:title="Chat" />
 
     <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_user_24dp"
-        android:title="" />
+        android:title="Settings" />
 
 </menu>

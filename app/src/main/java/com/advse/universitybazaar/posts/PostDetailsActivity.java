@@ -71,7 +71,6 @@ public class PostDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_details);
-        getSupportActionBar().hide();
         intent = getIntent();
 
         headingTextView = (EditText) findViewById(R.id.postHeading);

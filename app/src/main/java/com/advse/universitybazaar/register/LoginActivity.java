@@ -30,7 +30,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
 
         SharedPreferences pref = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
         String currentPref =  pref.getString("mavID",null);
@@ -95,7 +94,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,R.style.Theme_AppCompat_Light_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,R.style.loginDialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating..");
         progressDialog.setCancelable(false);

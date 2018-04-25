@@ -32,6 +32,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="149dp"
+                android:textColor="@color/nav_unchecked"
                 android:ems="10"
                 android:hint="Post Heading" />
         </android.support.design.widget.TextInputLayout>
@@ -51,6 +52,7 @@
                 android:layout_alignParentBottom="false"
                 android:baselineAligned="false"
                 android:ems="10"
+                android:textColor="@color/nav_unchecked"
                 android:gravity="top|left"
                 android:hint="Post Description"
                 android:inputType="textMultiLine"
@@ -73,6 +75,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginBottom="99dp"
                 android:layout_marginStart="0dp"
+                android:textColor="@color/nav_unchecked"
                 android:hint="Location" />
 
         </android.support.design.widget.TextInputLayout>

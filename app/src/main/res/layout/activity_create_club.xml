@@ -26,6 +26,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="149dp"
+                android:textColor="@color/nav_unchecked"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:hint="Club Name" />
@@ -44,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_alignParentBottom="false"
+                android:textColor="@color/nav_unchecked"
                 android:ems="10"
                 android:hint="Club Description"
                 android:inputType="textMultiLine"

@@ -1,16 +1,13 @@
 package com.advse.universitybazaar.bean;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
-import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
 import com.advse.universitybazaar.R;
 import com.advse.universitybazaar.clubs.ClubHome;
@@ -18,9 +15,6 @@ import com.advse.universitybazaar.messages.MessageHome;
 import com.advse.universitybazaar.posts.PostHome;
 import com.advse.universitybazaar.trade.TradeActivity;
 import com.advse.universitybazaar.register.UserHome;
-
-import java.lang.reflect.Field;
-
 // Example can be found at link below
 // https://blog.fossasia.org/using-activities-with-bottom-navigation-view-in-phimpme-android/
 public abstract class BaseActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -32,6 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
         navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationShiftHelper.removeShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(this);
     }
 
@@ -50,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
 
     @Override
     public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
-        navigation.postDelayed(() -> {
+//        navigation.postDelayed(() -> {
             int itemId = item.getItemId();
 
             if(itemId == R.id.navigation_news) {
@@ -64,8 +59,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BottomNa
             } else if(itemId == R.id.navigation_settings) {
                 startActivity(new Intent(this,UserHome.class));
             }
-            finish();
-        },300);
+//            finish();
+//        },300);
         return true;
     }
 

@@ -43,9 +43,6 @@ public class MyPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_post);
 
-        getSupportActionBar().hide();
-
-
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF", Context.MODE_PRIVATE);
         ownerID = prefs.getString("mavID",null);
 

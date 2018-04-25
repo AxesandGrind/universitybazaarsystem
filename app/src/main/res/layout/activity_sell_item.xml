@@ -32,6 +32,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="50dp"
+                    android:textColor="@color/nav_unchecked"
                     android:ems="10"
                     android:hint="Item Name"
                     android:inputType="textPersonName" />
@@ -51,6 +52,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="200dp"
+                    android:textColor="@color/nav_unchecked"
                     android:ems="10"
                     android:hint="Item Price"
                     android:inputType="number" />
@@ -70,6 +72,7 @@
                     android:layout_height="300dp"
                     android:layout_alignParentBottom="false"
                     android:layout_marginTop="100dp"
+                    android:textColor="@color/nav_unchecked"
                     android:ems="10"
                     android:gravity="top|left"
                     android:hint="Item Description"

@@ -7,6 +7,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -39,6 +40,7 @@ public class CreateClubActivity extends AppCompatActivity {
         createClubButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                hideKeyboard();
                 if(validate()) {
                     createClub();
                 }
@@ -80,7 +82,7 @@ public class CreateClubActivity extends AppCompatActivity {
     public boolean validate() {
         String name = clubName.getText().toString();
         String desc = clubDesc.getText().toString();
-        if(name.length() <= 0 && desc.length() <= 0) {
+        if(name.length() <= 0 || desc.length() <= 0) {
             Snackbar snack = Snackbar.make(findViewById(R.id.Snackbar_Create_Club),"Please Enter all the fields",Snackbar.LENGTH_SHORT);
             snack.getView().setBackgroundColor(Color.parseColor("#B21919"));
             snack.show();
@@ -91,5 +93,10 @@ public class CreateClubActivity extends AppCompatActivity {
             return false;
         }
         return true;
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(this.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
