@@ -48,14 +48,16 @@ public class MessageHome extends BaseActivity {
 
         floatingActionButton1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
+                Intent IndividualMessagesIntent = new Intent(getApplicationContext(),SendMessageActivity.class);
+                IndividualMessagesIntent.putExtra("messages","individual");
+                startActivityForResult(IndividualMessagesIntent, 121);
             }
         });
         floatingActionButton2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent clubMessagesIntent = new Intent(getApplicationContext(),SendMessageActivity.class);
                 clubMessagesIntent.putExtra("messages","clubMessage");
-                startActivity(clubMessagesIntent);
+                startActivityForResult(clubMessagesIntent, 122);
             }
         });
         floatingActionButton3.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +79,10 @@ public class MessageHome extends BaseActivity {
     protected void onActivityResult(int requestCode,int resultCode,Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
         if(requestCode == 121 && resultCode == RESULT_OK) {
+            Toast.makeText(getApplicationContext(), "Personal message sent successfully", Toast.LENGTH_SHORT).show();
 
         } else if(requestCode == 122 && resultCode == RESULT_OK) {
+            Toast.makeText(getApplicationContext(), "Group message sent successfully", Toast.LENGTH_SHORT).show();
 
         } else if(requestCode == 123 && resultCode == RESULT_OK) {
             Toast.makeText(getApplicationContext(), "Broadcast Successful", Toast.LENGTH_SHORT).show();
