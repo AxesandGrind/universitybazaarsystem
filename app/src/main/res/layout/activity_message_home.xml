@@ -9,17 +9,23 @@
     android:layout_height="match_parent"
     tools:context="com.advse.universitybazaar.messages.MessageHome">
 
-    <ImageView
+    <android.support.design.widget.TabLayout
+        android:id="@+id/messageTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_weight="1"
-        android:scaleType="fitXY"
-        android:src="@drawable/index1" />
+        android:layout_height="wrap_content"
+        app:tabSelectedTextColor="@android:color/white"
+        app:tabTextColor="@color/nav_unchecked"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        android:background="@android:color/transparent" />
 
+    <!-- View pager to swipe views -->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/messagePager"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"/>
     <com.github.clans.fab.FloatingActionMenu
         android:id="@+id/material_design_android_floating_action_menu"
         android:layout_width="wrap_content"
