@@ -1,20 +1,20 @@
 package com.advse.universitybazaar.messages;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
-import com.advse.universitybazaar.bean.BaseActivity;
-import com.advse.universitybazaar.register.UserHome;
 import com.advse.universitybazaar.R;
+import com.advse.universitybazaar.bean.BaseActivity;
 import com.github.clans.fab.FloatingActionMenu;
 
 public class MessageHome extends BaseActivity {
 
+    ViewPager messageViewPager;
+    TabLayout messageTabLayout;
     FloatingActionMenu materialDesignFAM;
     com.github.clans.fab.FloatingActionButton floatingActionButton1, floatingActionButton2, floatingActionButton3;
 
@@ -56,11 +56,23 @@ public class MessageHome extends BaseActivity {
                 startActivity(new Intent(MessageHome.this,SendMessageActivity.class));
             }
         });
+        messageViewPager = (ViewPager) findViewById(R.id.messagePager);
+        setViewPager(messageViewPager);
+
+        messageTabLayout = (TabLayout) findViewById(R.id.messageTabLayout);
+        messageTabLayout.setupWithViewPager(messageViewPager);
 
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+    private void setViewPager(ViewPager viewPager) {
+        MessageTabsManager adapter = new MessageTabsManager(getSupportFragmentManager());
+        adapter.addFragment(new AllMessageFragment(),"Announcements");
+        adapter.addFragment(new ClubMessageFragment(),"Club Messages");
+        adapter.addFragment(new PersonalMessageFragment(),"Personal Messages");
+        viewPager.setAdapter(adapter);
     }
 }
