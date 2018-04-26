@@ -23,6 +23,7 @@ import com.advse.universitybazaar.R;
 import com.advse.universitybazaar.bean.BaseActivity;
 import com.advse.universitybazaar.bean.Club;
 import com.advse.universitybazaar.bean.Message;
+import com.advse.universitybazaar.bean.Student;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,6 +60,8 @@ public class SendMessageActivity extends BaseActivity {
 
     String clubId;
 
+    String mavsID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +78,7 @@ public class SendMessageActivity extends BaseActivity {
 
         String msgType = intent.getStringExtra("messages");
         if(msgType.equals("clubMessage")) {
-            //sendClubMessage();
+            sendClubMessage();
         }
 
         if(msgType.equals("all")) {
@@ -95,9 +98,62 @@ public class SendMessageActivity extends BaseActivity {
                 }
             });
         }
+
+        if(msgType.equals("individual")){
+
+            sendIndividualMessage();
+        }
+    }
+
+    //to individual
+    public void sendIndividualMessage() {
+        final List<String> listOfIndividuals = new ArrayList<>();
+        db = FirebaseDatabase.getInstance().getReference("Users/");
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
+                    Student student = snapShot.getValue(Student.class);
+                    listOfIndividuals.add(student.getMavID());
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(SendMessageActivity.this,android.R.layout.simple_spinner_item,listOfIndividuals);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                listOfReceivers.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+        listOfReceivers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mavsID = listOfReceivers.getSelectedItem().toString();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        sendMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitIndividualMessage(mavsID);
+            }
+        });
     }
 
 
+
+    //To club
     public void sendClubMessage() {
         final List<String> listOfClubs = new ArrayList<>();
         db = FirebaseDatabase.getInstance().getReference("Clubs/");
@@ -109,6 +165,11 @@ public class SendMessageActivity extends BaseActivity {
                         Club club = snapShot.getValue(Club.class);
                         listOfClubs.add(String.valueOf(club.getClubId()));
                 }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(SendMessageActivity.this,android.R.layout.simple_spinner_item,listOfClubs);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                listOfReceivers.setAdapter(adapter);
+
             }
 
             @Override
@@ -117,9 +178,7 @@ public class SendMessageActivity extends BaseActivity {
             }
         });
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,listOfClubs);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        listOfReceivers.setAdapter(adapter);
+
 
         listOfReceivers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -135,12 +194,12 @@ public class SendMessageActivity extends BaseActivity {
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMessageToClubMembers(clubId);
+                submitClubMessage(clubId);
             }
         });
     }
 
-    public void sendMessageToClubMembers(String clubId) {
+    public void submitClubMessage(String clubId) {
 
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF", Context.MODE_PRIVATE);
         final String ownerID = prefs.getString("mavID",null);
@@ -210,5 +269,43 @@ public class SendMessageActivity extends BaseActivity {
                 }
             });
         }
-    }
+
+
+        //save indivual message
+        public void submitIndividualMessage(String receiverId) {
+            final EditText messageBody = (EditText) findViewById(R.id.messageBody);
+            SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
+            final String senderId =  prefs.getString("mavID",null);
+
+            final DatabaseReference db = FirebaseDatabase.getInstance().getReference("/Individual_Messages");
+            Query getLastRow = db.orderByKey().limitToLast(1);
+
+            getLastRow.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    //  GenericTypeIndicator<ArrayList<Club>> clubsIndicator = new GenericTypeIndicator<ArrayList<Club>>() {};
+                    ArrayList<Message> messageList = new ArrayList<>();
+                    for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
+                        messageList.add(snapShot.getValue(Message.class));
+                    }
+
+                    int messageId = messageList.size() != 0 ? messageList.get(0).getMessageId() + 1 : 1;
+
+                    Message message = new Message(messageId, messageBody.getText().toString(), senderId, receiverId);
+
+                    db.child(String.valueOf(messageId)).setValue(message);
+
+                    setResult(RESULT_OK,null);
+                    finish();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+
+}
 
