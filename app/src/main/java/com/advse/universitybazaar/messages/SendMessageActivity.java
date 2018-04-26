@@ -13,11 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.advse.universitybazaar.R;
 import com.advse.universitybazaar.bean.BaseActivity;
@@ -43,6 +46,8 @@ import java.util.List;
 
 public class SendMessageActivity extends BaseActivity {
 
+    Intent intent;
+
     public int getContentView() {
         return R.layout.activity_message_home;
     }
@@ -62,19 +67,24 @@ public class SendMessageActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
-        intent = getIntent();
-
 
         getContentView();
         getNavigationId();
 
-        Intent intent = getIntent();
+        intent = getIntent();
+
         String msgType = intent.getStringExtra("messages");
         if(intent.getStringExtra("messages").equals("clubMessage")) {
             sendClubMessage();
         }
 
         if(msgType.equals("all")) {
+
+            Spinner dropdown = (Spinner) findViewById(R.id.spinner);
+            String[] items = new String[]{"All"};
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,items);
+            dropdown.setAdapter(adapter);
+            dropdown.setEnabled(false);
 
             Button sendMessageButton = (Button) findViewById(R.id.sendMessageButton);
 
@@ -98,7 +108,17 @@ public class SendMessageActivity extends BaseActivity {
                     Club club = snapShot.getValue(Club.class);
                     listOfClubs.add(String.valueOf(club.getClubId()));
                 }
+        }
+    }
 
+    public void submitBroadcastMessage() {
+
+
+
+        //Disable the spinner here
+        final EditText messageBody = (EditText) findViewById(R.id.messageBody);
+        SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
+        final String senderId =  prefs.getString("mavID",null);
             }
 
             @Override
@@ -161,6 +181,8 @@ public class SendMessageActivity extends BaseActivity {
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
         final String senderId =  prefs.getString("mavID",null);
 
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("/All Messages");
+        Query getLastRow = db.orderByKey().limitToLast(1);
         final DatabaseReference db = FirebaseDatabase.getInstance().getReference("/All Messages");
         Query getLastRow = db.orderByKey().limitToLast(1);
 
@@ -188,6 +210,11 @@ public class SendMessageActivity extends BaseActivity {
 
                 }
             });
+
+            /*submitBroadcastMessage() {
+
+            }*/
+            //Message message = new Message();
         }
     }
-
+}
