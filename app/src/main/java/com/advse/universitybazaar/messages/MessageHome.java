@@ -73,6 +73,7 @@ public class MessageHome extends BaseActivity {
         } else if(requestCode == 122 && resultCode == RESULT_OK) {
 
         } else if(requestCode == 123 && resultCode == RESULT_OK) {
+            Toast.makeText(getApplicationContext(), "Broadcast Successful", Toast.LENGTH_SHORT).show();
         }
     }
 

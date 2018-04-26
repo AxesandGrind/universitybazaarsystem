@@ -15,6 +15,12 @@ public class Message {
         this.receiverId = receiverId;
     }
 
+    public Message(int messageId, String messageDesc, String senderId) {
+        this.messageId = messageId;
+        this.messageDesc = messageDesc;
+        this.senderId = senderId;
+    }
+
     public int getMessageId() {
         return messageId;
     }
