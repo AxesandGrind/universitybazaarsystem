@@ -1,11 +1,16 @@
 package com.advse.universitybazaar.messages;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Toast;
 
 import com.advse.universitybazaar.R;
 import com.advse.universitybazaar.bean.BaseActivity;
@@ -43,17 +48,21 @@ public class MessageHome extends BaseActivity {
 
         floatingActionButton1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(MessageHome.this,SendMessageActivity.class));
+
             }
         });
         floatingActionButton2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                Intent clubMessagesIntent = new Intent(getApplicationContext(),SendMessageActivity.class);
+                clubMessagesIntent.putExtra("messages","clubMessage");
                 startActivity(new Intent(MessageHome.this,SendMessageActivity.class));
             }
         });
         floatingActionButton3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                startActivity(new Intent(MessageHome.this,SendMessageActivity.class));
+                Intent intent = new Intent(getApplicationContext(),SendMessageActivity.class);
+                intent.putExtra("messages", "all");
+                startActivityForResult(intent, 123);
             }
         });
         messageViewPager = (ViewPager) findViewById(R.id.messagePager);
@@ -62,6 +71,18 @@ public class MessageHome extends BaseActivity {
         messageTabLayout = (TabLayout) findViewById(R.id.messageTabLayout);
         messageTabLayout.setupWithViewPager(messageViewPager);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data) {
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode == 121 && resultCode == RESULT_OK) {
+
+        } else if(requestCode == 122 && resultCode == RESULT_OK) {
+
+        } else if(requestCode == 123 && resultCode == RESULT_OK) {
+            Toast.makeText(getApplicationContext(), "Broadcast Successful", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
