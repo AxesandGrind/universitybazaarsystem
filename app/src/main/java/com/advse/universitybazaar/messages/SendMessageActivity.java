@@ -1,5 +1,6 @@
 package com.advse.universitybazaar.messages;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -16,7 +17,6 @@ public class SendMessageActivity extends BaseActivity {
         return R.id.navigation_messages;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +25,10 @@ public class SendMessageActivity extends BaseActivity {
         getContentView();
         getNavigationId();
 
+        Intent intent = getIntent();
+        String msgType = intent.getStringExtra("messages");
+        if(msgType.equals("all")) {
 
-
+        }
     }
 }
