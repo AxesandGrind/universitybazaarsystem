@@ -55,7 +55,7 @@ public class MessageHome extends BaseActivity {
             public void onClick(View v) {
                 Intent clubMessagesIntent = new Intent(getApplicationContext(),SendMessageActivity.class);
                 clubMessagesIntent.putExtra("messages","clubMessage");
-                startActivity(new Intent(MessageHome.this,SendMessageActivity.class));
+                startActivity(clubMessagesIntent);
             }
         });
         floatingActionButton3.setOnClickListener(new View.OnClickListener() {
