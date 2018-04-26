@@ -75,7 +75,8 @@ public class ClubMessageFragment extends Fragment {
 
     private void showMessage(Message message) {
         Intent selectedMessage = new Intent(getActivity().getApplicationContext(), com.advse.universitybazaar.messages.SelectedMessage.class);
-        String messageDetails = "Club Messages,"+ message.getSenderId()+","+message.getMessageDesc();
+        String club = message.getReceiverId() != null ? message.getReceiverId() : "";
+        String messageDetails = "Club Messages: "+club+ ","+message.getSenderId()+","+message.getMessageDesc();
         selectedMessage.putExtra("messsage",messageDetails);
         startActivityForResult(selectedMessage,1);
     }
@@ -108,6 +109,7 @@ public class ClubMessageFragment extends Fragment {
                     if(!members.isEmpty() && members.containsKey(ownerID )) {
                         for(DataSnapshot m : snapShot.child("messages").getChildren()){
                             Message message = m.getValue(Message.class);
+                            message.setReceiverId(snapShot.child("clubId").getValue().toString());
                             addMessageToView(message);
                         }
                     }
