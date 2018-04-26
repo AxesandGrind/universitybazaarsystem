@@ -22,6 +22,8 @@ public class SendMessageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_message);
 
+        
+
         getContentView();
         getNavigationId();
 
