@@ -57,6 +57,7 @@ public class SendMessageActivity extends BaseActivity {
     Button sendMessageButton;
     EditText messageBody;
 
+    String clubId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,19 +101,30 @@ public class SendMessageActivity extends BaseActivity {
     public void sendClubMessage() {
         final List<String> listOfClubs = new ArrayList<>();
         db = FirebaseDatabase.getInstance().getReference("Clubs/");
+        db.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
+                for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
+                        Club club = snapShot.getValue(Club.class);
+                        listOfClubs.add(String.valueOf(club.getClubId()));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,listOfClubs);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         listOfReceivers.setAdapter(adapter);
-        //Disable the spinner here
-        //Message message = new Message();
 
         listOfReceivers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String clubId = listOfReceivers.getSelectedItem().toString();
-                sendMessageToClubMembers(clubId);
+                clubId = listOfReceivers.getSelectedItem().toString();
             }
 
             @Override
@@ -123,7 +135,7 @@ public class SendMessageActivity extends BaseActivity {
         sendMessageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //sendMessageToClubMembers();
+                sendMessageToClubMembers(clubId);
             }
         });
     }
