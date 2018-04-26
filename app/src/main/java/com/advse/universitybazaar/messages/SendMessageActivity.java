@@ -97,6 +97,74 @@ public class SendMessageActivity extends BaseActivity {
     }
 
 
+    public void sendClubMessage() {
+        final List<String> listOfClubs = new ArrayList<>();
+        db = FirebaseDatabase.getInstance().getReference("Clubs/");
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,listOfClubs);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        listOfReceivers.setAdapter(adapter);
+        //Disable the spinner here
+        //Message message = new Message();
+
+        listOfReceivers.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String clubId = listOfReceivers.getSelectedItem().toString();
+                sendMessageToClubMembers(clubId);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        sendMessageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //sendMessageToClubMembers();
+            }
+        });
+    }
+
+    public void sendMessageToClubMembers(String clubId) {
+
+        SharedPreferences prefs = getSharedPreferences("LOGIN_PREF", Context.MODE_PRIVATE);
+        final String ownerID = prefs.getString("mavID",null);
+        String messageContent = messageBody.getText().toString();
+
+        db = FirebaseDatabase.getInstance().getReference("Clubs/"+clubId+"/messages");
+
+        Query getLastRow = db.orderByKey().limitToLast(1);
+        getLastRow.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //  GenericTypeIndicator<ArrayList<Club>> clubsIndicator = new GenericTypeIndicator<ArrayList<Club>>() {};
+                ArrayList<Message> messageList = new ArrayList<>();
+                for(DataSnapshot snapShot : dataSnapshot.getChildren()) {
+                    messageList.add(snapShot.getValue(Message.class));
+                }
+
+                int messageId = messageList.size() != 0 ? messageList.get(0).getMessageId() + 1 : 1;
+
+                Message message = new Message(messageId, messageBody.getText().toString(), ownerID);
+
+                db.child(String.valueOf(messageId)).setValue(message);
+
+                setResult(RESULT_OK,null);
+                finish();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+
     public void submitBroadcastMessage() {
         final EditText messageBody = (EditText) findViewById(R.id.messageBody);
         SharedPreferences prefs = getSharedPreferences("LOGIN_PREF",MODE_PRIVATE);
