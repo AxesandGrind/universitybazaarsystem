@@ -56,6 +56,7 @@
             android:windowSoftInputMode="stateHidden" />
         <activity android:name=".messages.MessageHome" />
         <activity android:name=".messages.SendMessageActivity"></activity>
+        <activity android:name=".messages.SelectedMessage"></activity>
     </application>
 
 </manifest>
