@@ -25,8 +25,7 @@ public class SelectedMessage extends AppCompatActivity {
         messageHeading = (TextView) findViewById(R.id.displayMessageHeading);
         messageHeading.setText(messageDetails[0]);
         messageSenderId.setText("From: " + messageDetails[1]);
-        messageDescription.setText("Message \n");
         if(messageDetails.length>2)
-            messageDescription.setText(messageDescription.getText() + messageDetails[2]);
+            messageDescription.setText(messageDetails[2]);
     }
 }
