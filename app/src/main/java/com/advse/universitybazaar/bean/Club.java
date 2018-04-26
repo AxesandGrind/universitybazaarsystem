@@ -14,6 +14,7 @@ public class Club {
     String clubName;
     String clubDescription;
     String clubOwner;
+
     //Map<String, String> members;
 
     public Club() {
